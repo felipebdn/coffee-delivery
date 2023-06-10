@@ -28,6 +28,10 @@ module.exports = {
       background: '#FAFAFA',
       white: '#FFFFFF',
     },
+    fontFamily: {
+      ballo2: ['var(--ballo-2)'],
+      roboto: ['var(--roboto)'],
+    },
   },
   plugins: [],
 }
