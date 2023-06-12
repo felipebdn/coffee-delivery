@@ -3,9 +3,19 @@ import './styles.css'
 import { useForm } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CreditCard, DollarSign, Landmark, MapPin, Trash } from 'lucide-react'
+import {
+  CreditCard,
+  DollarSign,
+  Landmark,
+  MapPin,
+  Plus,
+  Minus,
+  Trash2,
+} from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
+
+import coffeeImage from '../../assets/images/coffee.svg'
 
 const checkoutSchema = zod.object({
   cep: zod.string(),
@@ -29,8 +39,8 @@ export default function Checkout() {
   // }
   return (
     <div className="grid grid-cols-5 gap-8">
-      <div className="col-span-3">
-        <h3 className="mb-4 font-ballo2 text-lg font-bold leading-tight text-base-subtitle">
+      <div className="col-span-3 flex flex-col gap-3">
+        <h3 className="mb-1 font-ballo2 text-lg font-bold leading-tight text-base-subtitle">
           Complete seu pedido
         </h3>
         <div className="flex flex-col gap-8 rounded-md bg-base-card p-10">
@@ -100,9 +110,9 @@ export default function Checkout() {
             />
           </div>
         </div>
-        <div>
+        <div className="flex flex-col gap-8 rounded-md bg-base-card p-10">
           <header className="flex gap-2">
-            <DollarSign className="text-yellow-dark" size={22} />
+            <DollarSign className="text-purple" size={22} />
             <div>
               <h4 className="text-base font-normal leading-tight text-base-subtitle">
                 Pagamento
@@ -112,18 +122,33 @@ export default function Checkout() {
               </p>
             </div>
           </header>
-          <div>
-            <div>
-              <CreditCard />
-              <span>Cartão de crédito</span>
+          <div className="grid grid-cols-3 gap-3">
+            <div
+              aria-checked={true}
+              className="flex items-center justify-center gap-3 rounded-md border border-transparent bg-purple-light p-4 aria-checked:border-purple"
+            >
+              <CreditCard size={16} className="text-purple" />
+              <span className="text-xs font-normal uppercase leading-normal text-base-text">
+                Cartão de crédito
+              </span>
             </div>
-            <div>
-              <Landmark />
-              <span>cartão de débito</span>
+            <div
+              aria-checked={false}
+              className="flex items-center justify-center gap-3 rounded-md border border-transparent bg-purple-light p-4 aria-checked:border-purple"
+            >
+              <Landmark size={16} className="text-purple" />
+              <span className="text-xs font-normal uppercase leading-normal text-base-text">
+                cartão de débito
+              </span>
             </div>
-            <div>
-              <CreditCard />
-              <span>dinheiro</span>
+            <div
+              aria-checked={false}
+              className="flex items-center justify-center gap-3 rounded-md border border-transparent bg-purple-light p-4 aria-checked:border-purple"
+            >
+              <CreditCard size={16} className="text-purple" />
+              <span className="text-xs font-normal uppercase leading-normal text-base-text">
+                dinheiro
+              </span>
             </div>
           </div>
         </div>
@@ -132,25 +157,39 @@ export default function Checkout() {
         <h3 className="mb-4 font-ballo2 text-lg font-bold leading-tight text-base-subtitle">
           Cafés selecionados
         </h3>
-        <div>
-          <div>
-            <div>
-              <Image src="" alt="" />
-              <div>
-                <h4>Expresso Tradicional</h4>
-                <div>
-                  <div>
-                    <button>-</button>
-                    <span>1</span>
-                    <button>+</button>
+        <div className="rounded-md rounded-bl-[44px] rounded-tr-[44px] bg-base-card p-10">
+          <div className="flex flex-col gap-6">
+            <div className="mb-6 flex justify-between gap-4 border-b border-base-button pb-6">
+              <div className="flex gap-5">
+                <Image src={coffeeImage} alt="" width={64} height={64} />
+                <div className="flex flex-col items-start justify-between">
+                  <h4 className="text-base font-normal leading-tight text-base-subtitle">
+                    Expresso Tradicional
+                  </h4>
+                  <div className="flex gap-2">
+                    <div className="flex h-9 items-center gap-2 rounded-md bg-base-button px-2 text-purple-dark">
+                      <button>
+                        <Minus size={14} strokeWidth={3} />
+                      </button>
+                      <span className="text-center text-base font-normal leading-tight text-base-title">
+                        1
+                      </span>
+                      <button>
+                        <Plus size={14} strokeWidth={3} />
+                      </button>
+                    </div>
+                    <button className="flex items-center gap-1 rounded-md bg-base-button">
+                      <Trash2 size={16} className="text-purple" />
+                      <span className="text-xs font-normal uppercase leading-normal text-base-text">
+                        Remover
+                      </span>
+                    </button>
                   </div>
-                  <button>
-                    <Trash />
-                    <span>Remover</span>
-                  </button>
                 </div>
               </div>
-              <span>R$ 9,90</span>
+              <span className="text-base font-bold leading-tight text-base-text">
+                R$ 9,90
+              </span>
             </div>
           </div>
           <div>
