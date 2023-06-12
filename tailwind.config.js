@@ -27,6 +27,7 @@ module.exports = {
 
       background: '#FAFAFA',
       white: '#FFFFFF',
+      transparent: 'transparent',
     },
     fontFamily: {
       ballo2: ['var(--ballo-2)'],

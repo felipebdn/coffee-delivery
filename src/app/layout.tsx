@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
       <body className={`${ballo2.variable} ${roboto.variable} font-roboto`}>
-        <div className="flex w-full justify-center">
+        <div className="flex w-full justify-center pb-8">
           <div className="w-full max-w-6xl">
             <header className="flex w-full justify-between py-8">
               <a href="/">

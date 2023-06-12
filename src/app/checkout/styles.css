@@ -1,0 +1,7 @@
+.inputCheckout {
+  @apply rounded bg-base-input p-3 border border-base-button outline-yellow-dark
+}
+
+.inputTextPlaceholder {
+  @apply placeholder:font-normal placeholder:text-sm placeholder:leading-tight placeholder:text-base-label font-normal text-sm leading-tight text-base-text
+}
