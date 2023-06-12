@@ -1,6 +1,6 @@
 'use client'
 import './styles.css'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -13,9 +13,9 @@ import {
   Trash2,
 } from 'lucide-react'
 import Image from 'next/image'
-import { useState } from 'react'
 
 import coffeeImage from '../../assets/images/coffee.svg'
+import { FormChekout } from './FormCheckout'
 
 const checkoutSchema = zod.object({
   cep: zod.string(),
@@ -30,13 +30,13 @@ const checkoutSchema = zod.object({
 type CheckoutTypes = zod.infer<typeof checkoutSchema>
 
 export default function Checkout() {
-  const [inputFocus, setInputFocus] = useState(false)
-  const { register } = useForm<CheckoutTypes>({
+  const formCheckout = useForm<CheckoutTypes>({
     resolver: zodResolver(checkoutSchema),
   })
-  // function teste(data: CheckoutTypes) {
-  //   console.log(data)
-  // }
+  function teste(data: CheckoutTypes) {
+    console.log(data)
+  }
+  const { handleSubmit } = formCheckout
   return (
     <div className="grid grid-cols-5 gap-8">
       <div className="col-span-3 flex flex-col gap-3">
@@ -55,60 +55,9 @@ export default function Checkout() {
               </p>
             </div>
           </header>
-          <div className="grid grid-cols-7 gap-4">
-            <input
-              type="text"
-              placeholder="CEP"
-              {...register('cep')}
-              className="inputCheckout inputTextPlaceholder col-span-3"
-            />
-            <input
-              type="text"
-              placeholder="Rua"
-              {...register('rua')}
-              className="inputCheckout inputTextPlaceholder col-span-7"
-            />
-            <input
-              type="text"
-              placeholder="Número"
-              {...register('numero')}
-              className="inputCheckout inputTextPlaceholder col-span-3"
-            />
-            <label
-              aria-pressed={inputFocus}
-              className="inputCheckout col-span-4 flex items-center aria-pressed:border-yellow-dark"
-            >
-              <input
-                type="text"
-                placeholder="Complemento"
-                {...register('rua')}
-                onFocus={() => setInputFocus(true)}
-                onBlur={() => setInputFocus(false)}
-                className="inputTextPlaceholder flex-1 bg-transparent outline-none"
-              />
-              <span className="text-xs font-normal italic leading-tight text-base-label">
-                Opcional
-              </span>
-            </label>
-            <input
-              className="inputCheckout inputTextPlaceholder col-span-3"
-              type="text"
-              placeholder="Bairro"
-              {...register('bairro')}
-            />
-            <input
-              className="inputCheckout inputTextPlaceholder col-span-3"
-              type="text"
-              placeholder="Cidade"
-              {...register('cidade')}
-            />
-            <input
-              className="inputCheckout inputTextPlaceholder col-span-1"
-              type="text"
-              placeholder="UF"
-              {...register('uf')}
-            />
-          </div>
+          <FormProvider {...formCheckout}>
+            <FormChekout />
+          </FormProvider>
         </div>
         <div className="flex flex-col gap-8 rounded-md bg-base-card p-10">
           <header className="flex gap-2">
@@ -192,21 +141,25 @@ export default function Checkout() {
               </span>
             </div>
           </div>
-          <div>
-            <div>
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center justify-between text-sm font-normal leading-tight text-base-text">
               <p>Total de itens</p>
-              <span>R$ 29,70</span>
+              <span className="text-base">R$ 29,70</span>
             </div>
-            <div>
+            <div className="flex items-center justify-between text-sm font-normal leading-tight text-base-text">
               <p>Entrega</p>
-              <span>R$ 3,50</span>
+              <span className="text-base">R$ 3,50</span>
             </div>
-            <div>
+            <div className="flex justify-between text-xl font-bold leading-tight text-base-subtitle">
               <p>Total</p>
               <span>R$ 33,20</span>
             </div>
           </div>
-          <button>Confirmar pedido</button>
+          <form onSubmit={handleSubmit(teste)}>
+            <button className="mt-6 flex w-full items-center justify-center rounded-md bg-yellow p-3 text-sm font-bold uppercase leading-normal text-white">
+              Confirmar pedido
+            </button>
+          </form>
         </div>
       </div>
     </div>
