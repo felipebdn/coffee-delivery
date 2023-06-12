@@ -5,6 +5,7 @@ import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CreditCard, DollarSign, Landmark, MapPin, Trash } from 'lucide-react'
 import Image from 'next/image'
+import { useState } from 'react'
 
 const checkoutSchema = zod.object({
   cep: zod.string(),
@@ -19,6 +20,7 @@ const checkoutSchema = zod.object({
 type CheckoutTypes = zod.infer<typeof checkoutSchema>
 
 export default function Checkout() {
+  const [inputFocus, setInputFocus] = useState(false)
   const { register } = useForm<CheckoutTypes>({
     resolver: zodResolver(checkoutSchema),
   })
@@ -62,15 +64,22 @@ export default function Checkout() {
               {...register('numero')}
               className="inputCheckout inputTextPlaceholder col-span-3"
             />
-            <div className="inputCheckout col-span-4 flex">
+            <label
+              aria-pressed={inputFocus}
+              className="inputCheckout col-span-4 flex items-center aria-pressed:border-yellow-dark"
+            >
               <input
                 type="text"
                 placeholder="Complemento"
                 {...register('rua')}
+                onFocus={() => setInputFocus(true)}
+                onBlur={() => setInputFocus(false)}
                 className="inputTextPlaceholder flex-1 bg-transparent outline-none"
               />
-              <span>Opcional</span>
-            </div>
+              <span className="text-xs font-normal italic leading-tight text-base-label">
+                Opcional
+              </span>
+            </label>
             <input
               className="inputCheckout inputTextPlaceholder col-span-3"
               type="text"
