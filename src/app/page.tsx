@@ -1,7 +1,13 @@
+'use client'
 import { CoffeeCart } from '@/components/coffeeCard'
 import { Hero } from '@/components/hero'
+import { useMyQueryQuery } from '@/generated/graphql'
 
 export default function Home() {
+  const [{ data }] = useMyQueryQuery({})
+
+  console.log(data)
+
   return (
     <>
       <Hero />

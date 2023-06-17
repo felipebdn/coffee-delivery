@@ -1,0 +1,12 @@
+query MyQuery {
+  coffees(where: {}) {
+    createdAt
+    id
+    name
+    price
+    typeCoffeesPlural(orderBy: typeName_ASC) {
+      id
+      typeName
+    }
+  }
+}
