@@ -1,10 +1,11 @@
-query MyQuery {
-  coffees(where: {}) {
+query Teste {
+  coffeesPlural {
     createdAt
-    id
     name
+    id
     price
     typeCoffeesPlural(orderBy: typeName_ASC) {
+      createdAt
       id
       typeName
     }
