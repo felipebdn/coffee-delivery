@@ -30,12 +30,6 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "4.0.1",
-    "@graphql-codegen/client-preset": "4.0.0",
-    "@graphql-codegen/introspection": "4.0.0",
-    "@graphql-codegen/typescript": "^4.0.0",
-    "@graphql-codegen/typescript-operations": "^4.0.0",
-    "@graphql-codegen/typescript-urql": "^3.7.3",
     "@rocketseat/eslint-config": "^1.2.0",
     "prettier-plugin-tailwindcss": "^0.3.0"
   }
