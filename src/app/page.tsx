@@ -1,32 +1,10 @@
 import { CoffeeCart } from '@/components/coffeeCard'
 import { Hero } from '@/components/hero'
 import { gql, graphqlClient } from '../lib/client'
-import { getSdk } from '@/codegen/graphql'
 
 export const revalidate = 0
 
-export const GetTest = gql`
-  query Teste {
-    coffeesPlural {
-      createdAt
-      name
-      id
-      price
-      typeCoffeesPlural(orderBy: typeName_ASC) {
-        createdAt
-        id
-        typeName
-      }
-    }
-  }
-`
 export default async function Home() {
-  const {Teste} = await getSdk(graphqlClient)
-
-  const data = await Teste()
-
-  
-  
 
   return (
     <>
