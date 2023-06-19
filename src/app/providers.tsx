@@ -1,12 +1,48 @@
 'use client'
-import { ReactNode } from 'react'
-import { Provider } from 'urql'
-import { client, ssrCache } from '@/lib/urql'
 
-export function Providers({ children }: { children: ReactNode }) {
-  const urqlState = ssrCache.extractData()
-  if (urqlState) {
-    ssrCache.restoreData(urqlState)
-  }
-  return <Provider value={client}>{children}</Provider>
+import {
+  ApolloClient,
+  ApolloLink,
+  HttpLink,
+  SuspenseCache,
+} from '@apollo/client'
+import {
+  ApolloNextAppProvider,
+  NextSSRInMemoryCache,
+  SSRMultipartLink,
+} from '@apollo/experimental-nextjs-app-support/ssr'
+import { ReactNode } from 'react'
+
+function makeClient() {
+  const httpLink = new HttpLink({
+    uri: process.env.NEXT_PUBLIC_HYGRAPH_URL,
+  })
+
+  return new ApolloClient({
+    cache: new NextSSRInMemoryCache(),
+    link:
+      typeof window === 'undefined'
+        ? ApolloLink.from([
+            new SSRMultipartLink({
+              stripDefer: true,
+            }),
+            httpLink,
+          ])
+        : httpLink,
+  })
+}
+
+function makeSuspenseCache() {
+  return new SuspenseCache()
+}
+
+export function ApolloWrapper({ children }: { children: ReactNode }) {
+  return (
+    <ApolloNextAppProvider
+      makeClient={makeClient}
+      makeSuspenseCache={makeSuspenseCache}
+    >
+      {children}
+    </ApolloNextAppProvider>
+  )
 }
