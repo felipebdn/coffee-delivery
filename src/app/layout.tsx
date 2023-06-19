@@ -27,8 +27,8 @@ export default async function RootLayout({
       <body className={`${ballo2.variable} ${roboto.variable} font-roboto`}>
         <div className="flex w-full justify-center pb-8">
           <div className="w-full max-w-6xl">
-              <Header />
-              {children}
+            <Header />
+            {children}
           </div>
         </div>
       </body>

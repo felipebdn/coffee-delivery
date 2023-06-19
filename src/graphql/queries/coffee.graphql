@@ -1,13 +1,18 @@
-query Teste {
+query GetCoffees {
   coffeesPlural {
     createdAt
     name
     id
     price
+    description
     typeCoffeesPlural(orderBy: typeName_ASC) {
       createdAt
       id
       typeName
+    }
+    coffeeImage {
+      id
+      url
     }
   }
 }
