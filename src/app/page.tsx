@@ -30,8 +30,6 @@ export default async function Home() {
 
   const { coffeesPlural }: { coffeesPlural: Coffees[] } = await GetCoffees()
 
-  console.log(coffeesPlural)
-
   return (
     <>
       <Hero />

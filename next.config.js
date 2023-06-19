@@ -12,6 +12,7 @@ const nextConfig = {
         hostname: 'media.graphassets.com',
       },
     ],
+    dangerouslyAllowSVG: true,
   },
 }
 
