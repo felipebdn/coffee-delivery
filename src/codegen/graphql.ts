@@ -1,5 +1,6 @@
-/* eslint-disable */
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import { GraphQLClient } from 'graphql-request';
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types';
+import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -14,18 +15,13 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  /** A date string, such as 2007-12-03 (YYYY-MM-DD), compliant with ISO 8601 standard for representation of dates using the Gregorian calendar. */
   Date: { input: any; output: any; }
-  /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the date-timeformat outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representationof dates and times using the Gregorian calendar. */
   DateTime: { input: any; output: any; }
   Hex: { input: any; output: any; }
-  /** Raw JSON value */
   Json: { input: any; output: any; }
-  /** The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1. */
   Long: { input: any; output: any; }
   RGBAHue: { input: any; output: any; }
   RGBATransparency: { input: any; output: any; }
-  /** Slate-compatible RichText AST */
   RichTextAST: { input: any; output: any; }
 };
 
@@ -4201,10 +4197,33 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
-export type TesteQueryVariables = Exact<{ [key: string]: never; }>;
+
+export const TesteDocument = gql`
+    query Teste {
+  coffeesPlural {
+    createdAt
+    name
+    id
+    price
+    typeCoffeesPlural(orderBy: typeName_ASC) {
+      createdAt
+      id
+      typeName
+    }
+  }
+}
+    `;
+
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
 
-export type TesteQuery = { __typename?: 'Query', coffeesPlural: Array<{ __typename?: 'Coffees', createdAt: any, name?: string | null, id: string, price?: number | null, typeCoffeesPlural: Array<{ __typename?: 'TypeCoffees', createdAt: any, id: string, typeName?: string | null }> }> };
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType) => action();
 
-
-export const TesteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Teste"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coffeesPlural"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"typeCoffeesPlural"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"EnumValue","value":"typeName_ASC"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"typeName"}}]}}]}}]}}]} as unknown as DocumentNode<TesteQuery, TesteQueryVariables>;
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    Teste(variables?: TesteQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<TesteQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TesteQuery>(TesteDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Teste', 'query');
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

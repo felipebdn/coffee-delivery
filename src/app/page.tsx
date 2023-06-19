@@ -1,43 +1,31 @@
-import { TesteQuery } from '@/codegen/graphql'
 import { CoffeeCart } from '@/components/coffeeCard'
 import { Hero } from '@/components/hero'
+import { gql, graphqlClient } from '../lib/client'
+import { getSdk } from '@/codegen/graphql'
 
 export const revalidate = 0
 
-export default async function Home() {
-
-  const res = await fetch(
-    process.env.NEXT_PUBLIC_HYGRAPH_URL!,
-    {
-      method: "POST",
-      body: JSON.stringify({
-        query: `query Teste {
-          coffeesPlural {
-            createdAt
-            name
-            id
-            price
-            typeCoffeesPlural(orderBy: typeName_ASC) {
-              createdAt
-              id
-              typeName
-            }
-          }
-        }`,
-      }),
-      headers: {
-        Authorization: `Bearer ${
-          process.env.NEXT_PUBLIC_HYGRAPH_TOKEN as string
-        }`,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
+export const GetTest = gql`
+  query Teste {
+    coffeesPlural {
+      createdAt
+      name
+      id
+      price
+      typeCoffeesPlural(orderBy: typeName_ASC) {
+        createdAt
+        id
+        typeName
+      }
     }
-  )
+  }
+`
+export default async function Home() {
+  const {Teste} = await getSdk(graphqlClient)
 
-  const {data} = await res.json()
+  const data = await Teste()
 
-  console.log(data);
+  
   
 
   return (

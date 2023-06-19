@@ -33,7 +33,10 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^4.0.1",
     "@graphql-codegen/client-preset": "^4.0.1",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-graphql-request": "^5.0.0",
     "@rocketseat/eslint-config": "^1.2.0",
+    "encoding": "^0.1.13",
     "prettier-plugin-tailwindcss": "^0.3.0"
   }
 }
