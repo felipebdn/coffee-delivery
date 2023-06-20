@@ -42,7 +42,7 @@ export function CoffeesReducer(
           draft[findIndexCoffeeInCart].amountCoffees++
         }
         if (actions.payload.operation === 'substract') {
-          if (draft[findIndexCoffeeInCart].amountCoffees >= 0) {
+          if (draft[findIndexCoffeeInCart].amountCoffees > 1) {
             draft[findIndexCoffeeInCart].amountCoffees--
           }
         }

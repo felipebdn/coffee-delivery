@@ -46,7 +46,7 @@ export function CoffeeInCart() {
                         <Plus size={14} strokeWidth={3} />
                       </button>
                     </div>
-                    <button className="flex items-center gap-1 rounded-md bg-base-button">
+                    <button className="flex items-center gap-1 rounded-md bg-base-button px-2">
                       <Trash2 size={16} className="text-purple" />
                       <button
                         onClick={() => handleRemoveCoffeeInCart(coffee.id)}
