@@ -24,10 +24,14 @@ export function CoffeesReducer(
   switch (actions.type) {
     case 'ADD_COFFEE_IN_CART':
       return produce(state, (draft) => {
-        const isCoffeeInCart = draft.findIndex((coffee) => {
-          return coffee.id === actions.payload.data.id
-        })
-        if (!isCoffeeInCart) draft.push(actions.payload.data)
+        if (draft[0].id === '') {
+          draft[0] = actions.payload.data
+        } else {
+          const isCoffeeInCart = draft.filter((coffee) => {
+            return coffee.id === actions.payload.data.id
+          })
+          if (isCoffeeInCart.length === 0) draft.push(actions.payload.data)
+        }
       })
     case 'CHANGE_AMOUNT_COFFEE_IN_CART':
       return produce(state, (draft) => {

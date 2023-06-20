@@ -1,5 +1,5 @@
 'use client'
-import { Minus, Plus, ShoppingCart } from 'lucide-react'
+import { Check, Minus, Plus, ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
 import { Coffees } from '@/codegen/graphql'
 import { formatCoffeeValue } from '@/lib/formatValueMoney'
@@ -18,9 +18,10 @@ export function CoffeeCart({ coffee }: { coffee: Coffees }) {
     if (amount > 0) setAmount(amount - 1)
   }
 
-  const isCoffeeInCart = cartCoffees.findIndex((coffeeInCart) => {
+  const filterCoffeeInCart = cartCoffees.filter((coffeeInCart) => {
     return coffeeInCart.id === coffee.id
   })
+  const isCoffeeInCart = filterCoffeeInCart.length > 0
 
   function handleAddCoffeeInCartFromHome() {
     if (amount > 0) {
@@ -76,18 +77,19 @@ export function CoffeeCart({ coffee }: { coffee: Coffees }) {
               <Minus size={14} strokeWidth={3} />
             </button>
             <span className="text-center text-base font-normal leading-tight text-base-title">
-              {!isCoffeeInCart ? 1 : amount}
+              {isCoffeeInCart ? filterCoffeeInCart[0].amountCoffees : amount}
             </span>
             <button onClick={handleAmountAdd}>
               <Plus size={14} strokeWidth={3} />
             </button>
           </div>
           <button
+            aria-pressed={isCoffeeInCart}
             onClick={handleAddCoffeeInCartFromHome}
-            disabled={!isCoffeeInCart}
-            className="flex h-9 w-9 items-center justify-center rounded-md bg-purple-dark text-base-card"
+            disabled={isCoffeeInCart}
+            className="flex h-9 w-9 items-center justify-center rounded-md bg-purple-dark text-base-card aria-pressed:bg-green"
           >
-            <ShoppingCart size={22} />
+            {isCoffeeInCart ? <Check size={22} /> : <ShoppingCart size={22} />}
           </button>
         </aside>
       </div>

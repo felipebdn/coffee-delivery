@@ -24,9 +24,7 @@ export default function Checkout() {
   const formCheckout = useForm<CheckoutTypes>({
     resolver: zodResolver(checkoutSchema),
   })
-  function teste(data: CheckoutTypes) {
-    console.log(data)
-  }
+  function teste(data: CheckoutTypes) {}
   const { handleSubmit } = formCheckout
   return (
     <div className="grid grid-cols-5 gap-8">
