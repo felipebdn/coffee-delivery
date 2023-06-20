@@ -1,9 +1,40 @@
+'use client'
 import { Minus, Plus, ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
 import { Coffees } from '@/codegen/graphql'
 import { formatCoffeeValue } from '@/lib/formatValueMoney'
+import { useContext, useState } from 'react'
+import { coffeeContext } from '@/context/coffeesContext'
+import { coffeesInCartTypes } from '@/reducers/coffees/reducer'
 
 export function CoffeeCart({ coffee }: { coffee: Coffees }) {
+  const { handleAddCoffeeInCart, cartCoffees } = useContext(coffeeContext)
+  const [amount, setAmount] = useState(0)
+
+  function handleAmountAdd() {
+    setAmount(amount + 1)
+  }
+  function handleAmountSubstract() {
+    if (amount > 0) setAmount(amount - 1)
+  }
+
+  const isCoffeeInCart = cartCoffees.findIndex((coffeeInCart) => {
+    return coffeeInCart.id === coffee.id
+  })
+
+  function handleAddCoffeeInCartFromHome() {
+    if (amount > 0) {
+      const data: coffeesInCartTypes = {
+        id: coffee.id,
+        price: coffee.price!,
+        coverUrl: coffee.coffeeImage?.url!,
+        amountCoffees: amount,
+        coffeeName: coffee.name!,
+      }
+      handleAddCoffeeInCart(data)
+    }
+  }
+
   return (
     <article className="relative mt-5 flex w-full flex-col justify-between rounded-bl-[2.25rem] rounded-br-md rounded-tl-md rounded-tr-[2.25rem] bg-base-card px-6 pb-5">
       <div className="-mt-5 flex w-full flex-col items-center">
@@ -41,17 +72,21 @@ export function CoffeeCart({ coffee }: { coffee: Coffees }) {
         </div>
         <aside className="flex gap-2">
           <div className="flex h-9 items-center gap-2 rounded-md bg-base-button px-2 text-purple-dark">
-            <button>
+            <button onClick={handleAmountSubstract}>
               <Minus size={14} strokeWidth={3} />
             </button>
             <span className="text-center text-base font-normal leading-tight text-base-title">
-              1
+              {!isCoffeeInCart ? 1 : amount}
             </span>
-            <button>
+            <button onClick={handleAmountAdd}>
               <Plus size={14} strokeWidth={3} />
             </button>
           </div>
-          <button className="flex h-9 w-9 items-center justify-center rounded-md bg-purple-dark text-base-card">
+          <button
+            onClick={handleAddCoffeeInCartFromHome}
+            disabled={!isCoffeeInCart}
+            className="flex h-9 w-9 items-center justify-center rounded-md bg-purple-dark text-base-card"
+          >
             <ShoppingCart size={22} />
           </button>
         </aside>

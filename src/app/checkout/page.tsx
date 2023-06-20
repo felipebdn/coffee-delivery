@@ -3,19 +3,10 @@ import './styles.css'
 import { FormProvider, useForm } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  CreditCard,
-  DollarSign,
-  Landmark,
-  MapPin,
-  Plus,
-  Minus,
-  Trash2,
-} from 'lucide-react'
-import Image from 'next/image'
+import { CreditCard, DollarSign, Landmark, MapPin } from 'lucide-react'
 
-import coffeeImage from '../../assets/images/coffee.svg'
 import { FormChekout } from './FormCheckout'
+import { CoffeeInCart } from '@/components/coffeesInCart'
 
 const checkoutSchema = zod.object({
   cep: zod.string(),
@@ -107,40 +98,7 @@ export default function Checkout() {
           Cafés selecionados
         </h3>
         <div className="rounded-md rounded-bl-[44px] rounded-tr-[44px] bg-base-card p-10">
-          <div className="flex flex-col gap-6">
-            <div className="mb-6 flex justify-between gap-4 border-b border-base-button pb-6">
-              <div className="flex gap-5">
-                <Image src={coffeeImage} alt="" width={64} height={64} />
-                <div className="flex flex-col items-start justify-between">
-                  <h4 className="text-base font-normal leading-tight text-base-subtitle">
-                    Expresso Tradicional
-                  </h4>
-                  <div className="flex gap-2">
-                    <div className="flex h-9 items-center gap-2 rounded-md bg-base-button px-2 text-purple-dark">
-                      <button>
-                        <Minus size={14} strokeWidth={3} />
-                      </button>
-                      <span className="text-center text-base font-normal leading-tight text-base-title">
-                        1
-                      </span>
-                      <button>
-                        <Plus size={14} strokeWidth={3} />
-                      </button>
-                    </div>
-                    <button className="flex items-center gap-1 rounded-md bg-base-button">
-                      <Trash2 size={16} className="text-purple" />
-                      <span className="text-xs font-normal uppercase leading-normal text-base-text">
-                        Remover
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <span className="text-base font-bold leading-tight text-base-text">
-                R$ 9,90
-              </span>
-            </div>
-          </div>
+          <CoffeeInCart />
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between text-sm font-normal leading-tight text-base-text">
               <p>Total de itens</p>
