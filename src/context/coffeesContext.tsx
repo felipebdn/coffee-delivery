@@ -9,7 +9,7 @@ import {
   coffeesInCartTypes,
   initialValues,
 } from '@/reducers/coffees/reducer'
-import { ReactNode, createContext, useReducer } from 'react'
+import { ReactNode, createContext, useEffect, useReducer } from 'react'
 
 interface coffeeContextTypes {
   cartCoffees: coffeesInCartTypes[]
@@ -23,8 +23,27 @@ interface coffeeContextTypes {
 
 export const coffeeContext = createContext({} as coffeeContextTypes)
 
+function restoreState() {
+  const restoredStateAsJSON = localStorage.getItem(
+    'Coffee-delivery: coffee-cards-1.0.0',
+  )
+  if (restoredStateAsJSON) {
+    return JSON.parse(restoredStateAsJSON)
+  }
+  return initialValues
+}
+
 export function CoffeeContextProvider({ children }: { children: ReactNode }) {
-  const [cartCoffees, dispatch] = useReducer(CoffeesReducer, initialValues)
+  const [cartCoffees, dispatch] = useReducer(
+    CoffeesReducer,
+    initialValues,
+    restoreState,
+  )
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cartCoffees)
+    localStorage.setItem('Coffee-delivery: coffee-cards-1.0.0', stateJSON)
+  }, [cartCoffees])
+
   console.log(cartCoffees)
 
   function handleChangeAmountCoffeeInCart(
