@@ -1,12 +1,12 @@
 import { CoffeeCart } from '@/components/coffeeCard'
 import { Hero } from '@/components/hero'
 import { gql, graphqlClient } from '../lib/client'
-import { Coffees, getSdk } from '@/codegen/graphql'
+import { Coffees } from '@/types/coffees'
 
 export const revalidate = 0
 
-export const GetTest = gql`
-  query Teste {
+const GetTest = gql`
+  query GetTest {
     coffeesPlural {
       createdAt
       name
@@ -26,9 +26,8 @@ export const GetTest = gql`
   }
 `
 export default async function Home() {
-  const { GetCoffees } = await getSdk(graphqlClient)
-
-  const { coffeesPlural }: { coffeesPlural: Coffees[] } = await GetCoffees()
+  const { coffeesPlural }: { coffeesPlural: Coffees[] } =
+    await graphqlClient.request(GetTest)
 
   return (
     <>

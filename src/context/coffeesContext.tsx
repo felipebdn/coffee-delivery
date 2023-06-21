@@ -1,6 +1,7 @@
 'use client'
 import {
   AddCoffeeInCart,
+  InitRestore,
   RemoveCoffeeInCart,
   changeAmountCoffeeInCart,
 } from '@/reducers/coffees/actions'
@@ -23,28 +24,28 @@ interface coffeeContextTypes {
 
 export const coffeeContext = createContext({} as coffeeContextTypes)
 
-function restoreState() {
-  const restoredStateAsJSON = localStorage.getItem(
-    'Coffee-delivery: coffee-cards-1.0.0',
-  )
-  if (restoredStateAsJSON) {
-    return JSON.parse(restoredStateAsJSON)
-  }
-  return initialValues
-}
-
 export function CoffeeContextProvider({ children }: { children: ReactNode }) {
-  const [cartCoffees, dispatch] = useReducer(
-    CoffeesReducer,
-    initialValues,
-    restoreState,
-  )
+  const [cartCoffees, dispatch] = useReducer(CoffeesReducer, initialValues)
   useEffect(() => {
-    const stateJSON = JSON.stringify(cartCoffees)
-    localStorage.setItem('Coffee-delivery: coffee-cards-1.0.0', stateJSON)
+    const getItemFromLocalStorage = localStorage.getItem(
+      'Coffee-delivery: coffee-cards-1.0.0',
+    )
+    if (getItemFromLocalStorage && JSON.parse(getItemFromLocalStorage)) {
+      dispatch(
+        InitRestore(
+          JSON.parse(
+            localStorage.getItem('Coffee-delivery: coffee-cards-1.0.0')!,
+          ),
+        ),
+      )
+    }
+  }, [])
+  useEffect(() => {
+    if (cartCoffees !== initialValues) {
+      const stateJSON = JSON.stringify(cartCoffees)
+      localStorage.setItem('Coffee-delivery: coffee-cards-1.0.0', stateJSON)
+    }
   }, [cartCoffees])
-
-  console.log(cartCoffees)
 
   function handleChangeAmountCoffeeInCart(
     id: string,

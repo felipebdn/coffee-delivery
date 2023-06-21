@@ -1,11 +1,11 @@
 'use client'
 import { Check, Minus, Plus, ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
-import { Coffees } from '@/codegen/graphql'
 import { formatCoffeeValue } from '@/lib/formatValueMoney'
 import { useContext, useState } from 'react'
 import { coffeeContext } from '@/context/coffeesContext'
 import { coffeesInCartTypes } from '@/reducers/coffees/reducer'
+import { Coffees } from '@/types/coffees'
 
 export function CoffeeCart({ coffee }: { coffee: Coffees }) {
   const { handleAddCoffeeInCart, cartCoffees } = useContext(coffeeContext)

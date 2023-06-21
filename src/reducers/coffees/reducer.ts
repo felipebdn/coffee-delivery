@@ -49,10 +49,14 @@ export function CoffeesReducer(
       })
     case 'REMOVE_COFFEE_IN_CART':
       return produce(state, (draft) => {
-        draft.filter((coffee) => {
-          return coffee.id !== actions.payload.id
-        })
+        draft = draft.filter((coffee) => coffee.id !== actions.payload.id)
       })
+    case 'INIT_RESTORE': {
+      console.log(actions.payload.data)
+
+      return actions.payload.data
+    }
+
     default:
       return state
   }

@@ -19,11 +19,27 @@ interface REMOVE_COFFEE_IN_CART {
     id: string
   }
 }
+interface INIT_RESTORE {
+  type: 'INIT_RESTORE'
+  payload: {
+    data: coffeesInCartTypes[]
+  }
+}
 
 export type Actions =
   | ADD_COFFEE_IN_CART
   | CHANGE_AMOUNT_COFFEE_IN_CART
   | REMOVE_COFFEE_IN_CART
+  | INIT_RESTORE
+
+export function InitRestore(data: coffeesInCartTypes[]): Actions {
+  return {
+    type: 'INIT_RESTORE',
+    payload: {
+      data,
+    },
+  }
+}
 
 export function AddCoffeeInCart(data: coffeesInCartTypes): Actions {
   return {

@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "codegen": "graphql-codegen",
-    "codegen-watch": "graphql-codegen --watch"
+    "lint": "next lint"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.1.0",
@@ -32,10 +30,6 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^4.0.1",
-    "@graphql-codegen/client-preset": "^4.0.1",
-    "@graphql-codegen/typescript": "^4.0.1",
-    "@graphql-codegen/typescript-graphql-request": "^5.0.0",
     "@rocketseat/eslint-config": "^1.2.0",
     "encoding": "^0.1.13",
     "prettier-plugin-tailwindcss": "^0.3.0"
