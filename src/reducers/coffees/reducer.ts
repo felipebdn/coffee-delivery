@@ -24,14 +24,10 @@ export function CoffeesReducer(
   switch (actions.type) {
     case 'ADD_COFFEE_IN_CART':
       return produce(state, (draft) => {
-        if (draft[0].id === '') {
-          draft[0] = actions.payload.data
-        } else {
-          const isCoffeeInCart = draft.filter((coffee) => {
-            return coffee.id === actions.payload.data.id
-          })
-          if (isCoffeeInCart.length === 0) draft.push(actions.payload.data)
-        }
+        const isCoffeeInCart = draft.filter((coffee) => {
+          return coffee.id === actions.payload.data.id
+        })
+        if (isCoffeeInCart.length === 0) draft.push(actions.payload.data)
       })
     case 'CHANGE_AMOUNT_COFFEE_IN_CART':
       return produce(state, (draft) => {
@@ -49,11 +45,17 @@ export function CoffeesReducer(
       })
     case 'REMOVE_COFFEE_IN_CART':
       return produce(state, (draft) => {
-        draft = draft.filter((coffee) => coffee.id !== actions.payload.id)
+        const index = draft.findIndex(
+          (coffee) => coffee.id === actions.payload.id,
+        )
+        if (index !== -1) {
+          draft.splice(index, 1)
+        }
+        if (state.length === 0) {
+          draft.push(initialValues[0])
+        }
       })
     case 'INIT_RESTORE': {
-      console.log(actions.payload.data)
-
       return actions.payload.data
     }
 

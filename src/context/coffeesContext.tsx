@@ -25,7 +25,10 @@ interface coffeeContextTypes {
 export const coffeeContext = createContext({} as coffeeContextTypes)
 
 export function CoffeeContextProvider({ children }: { children: ReactNode }) {
-  const [cartCoffees, dispatch] = useReducer(CoffeesReducer, initialValues)
+  const [cartCoffees, dispatch] = useReducer(
+    CoffeesReducer,
+    [] as coffeesInCartTypes[],
+  )
   useEffect(() => {
     const getItemFromLocalStorage = localStorage.getItem(
       'Coffee-delivery: coffee-cards-1.0.0',

@@ -9,8 +9,8 @@ export function Header() {
   const { cartCoffees } = useContext(coffeeContext)
 
   const amountCoffeeInCart = (): number => {
-    if (cartCoffees[0].id === '') return 0
-    return cartCoffees.length
+    if (cartCoffees) return cartCoffees.length
+    return 0
   }
 
   return (
@@ -28,9 +28,11 @@ export function Header() {
           className="relative flex rounded-md bg-yellow-light p-2 text-yellow-dark"
         >
           <ShoppingCart size={22} />
-          <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-yellow-dark text-xs font-bold leading-tight text-white">
-            {amountCoffeeInCart()}
-          </span>
+          {amountCoffeeInCart() > 0 && (
+            <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-yellow-dark text-xs font-bold leading-tight text-white">
+              {amountCoffeeInCart()}
+            </span>
+          )}
         </a>
       </div>
     </header>
