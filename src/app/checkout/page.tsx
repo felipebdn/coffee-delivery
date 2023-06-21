@@ -10,7 +10,7 @@ import { CoffeeInCart } from '@/components/coffeesInCart'
 import { CheckoutValues } from './CheckoutValues'
 
 const checkoutSchema = zod.object({
-  cep: zod.string(),
+  cep: zod.string().min(8).max(8),
   rua: zod.string(),
   numero: zod.number(),
   complemento: zod.string(),
