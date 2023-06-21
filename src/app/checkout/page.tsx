@@ -7,6 +7,7 @@ import { CreditCard, DollarSign, Landmark, MapPin } from 'lucide-react'
 
 import { FormChekout } from './FormCheckout'
 import { CoffeeInCart } from '@/components/coffeesInCart'
+import { CheckoutValues } from './CheckoutValues'
 
 const checkoutSchema = zod.object({
   cep: zod.string(),
@@ -26,6 +27,7 @@ export default function Checkout() {
   })
   function teste(data: CheckoutTypes) {}
   const { handleSubmit } = formCheckout
+
   return (
     <div className="grid grid-cols-5 gap-8">
       <div className="col-span-3 flex flex-col gap-3">
@@ -97,20 +99,7 @@ export default function Checkout() {
         </h3>
         <div className="rounded-md rounded-bl-[44px] rounded-tr-[44px] bg-base-card p-10">
           <CoffeeInCart />
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center justify-between text-sm font-normal leading-tight text-base-text">
-              <p>Total de itens</p>
-              <span className="text-base">R$ 29,70</span>
-            </div>
-            <div className="flex items-center justify-between text-sm font-normal leading-tight text-base-text">
-              <p>Entrega</p>
-              <span className="text-base">R$ 3,50</span>
-            </div>
-            <div className="flex justify-between text-xl font-bold leading-tight text-base-subtitle">
-              <p>Total</p>
-              <span>R$ 33,20</span>
-            </div>
-          </div>
+          <CheckoutValues />
           <form onSubmit={handleSubmit(teste)}>
             <button className="mt-6 flex w-full items-center justify-center rounded-md bg-yellow p-3 text-sm font-bold uppercase leading-normal text-white">
               Confirmar pedido
