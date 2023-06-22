@@ -3,20 +3,24 @@ import './styles.css'
 import { FormProvider, useForm } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CreditCard, DollarSign, Landmark, MapPin } from 'lucide-react'
+import { DollarSign, MapPin } from 'lucide-react'
 
 import { FormChekout } from './FormCheckout'
 import { CoffeeInCart } from '@/components/coffeesInCart'
 import { CheckoutValues } from './CheckoutValues'
+import { PaymentMethods } from './PaymentMethods'
+import { useContext } from 'react'
+import { coffeeContext } from '@/context/coffeesContext'
 
 const checkoutSchema = zod.object({
   cep: zod.string().min(8).max(8),
-  rua: zod.string(),
-  numero: zod.number(),
+  rua: zod.string().nonempty(),
+  numero: zod.number().min(1),
   complemento: zod.string(),
-  bairro: zod.string(),
-  cidade: zod.string(),
-  uf: zod.string(),
+  bairro: zod.string().nonempty(),
+  cidade: zod.string().nonempty(),
+  uf: zod.string().min(2).max(2).toUpperCase(),
+  methodPayment: zod.enum(['money', 'debit', 'credit']),
 })
 
 type CheckoutTypes = zod.infer<typeof checkoutSchema>
@@ -25,8 +29,15 @@ export default function Checkout() {
   const formCheckout = useForm<CheckoutTypes>({
     resolver: zodResolver(checkoutSchema),
   })
-  function teste(data: CheckoutTypes) {}
-  const { handleSubmit } = formCheckout
+  const { cartCoffees } = useContext(coffeeContext)
+  const {
+    handleSubmit,
+    formState: { errors },
+  } = formCheckout
+
+  function teste(data: CheckoutTypes) {
+    console.log(data)
+  }
 
   return (
     <div className="grid grid-cols-5 gap-8">
@@ -46,6 +57,16 @@ export default function Checkout() {
               </p>
             </div>
           </header>
+          {(errors.bairro ||
+            errors.cep ||
+            errors.cidade ||
+            errors.numero ||
+            errors.rua ||
+            errors.uf) && (
+            <p className="flex text-xs font-bold leading-tight text-error-color">
+              Preencha todos os campos obrigatórios
+            </p>
+          )}
           <FormProvider {...formCheckout}>
             <FormChekout />
           </FormProvider>
@@ -62,50 +83,40 @@ export default function Checkout() {
               </p>
             </div>
           </header>
-          <div className="grid grid-cols-3 gap-3">
-            <div
-              aria-checked={true}
-              className="flex items-center justify-center gap-3 rounded-md border border-transparent bg-purple-light p-4 aria-checked:border-purple"
-            >
-              <CreditCard size={16} className="text-purple" />
-              <span className="text-xs font-normal uppercase leading-normal text-base-text">
-                Cartão de crédito
-              </span>
-            </div>
-            <div
-              aria-checked={false}
-              className="flex items-center justify-center gap-3 rounded-md border border-transparent bg-purple-light p-4 aria-checked:border-purple"
-            >
-              <Landmark size={16} className="text-purple" />
-              <span className="text-xs font-normal uppercase leading-normal text-base-text">
-                cartão de débito
-              </span>
-            </div>
-            <div
-              aria-checked={false}
-              className="flex items-center justify-center gap-3 rounded-md border border-transparent bg-purple-light p-4 aria-checked:border-purple"
-            >
-              <CreditCard size={16} className="text-purple" />
-              <span className="text-xs font-normal uppercase leading-normal text-base-text">
-                dinheiro
-              </span>
-            </div>
-          </div>
+          {errors.methodPayment && (
+            <p className="flex text-xs font-bold leading-tight text-error-color">
+              Escolha um método de pagamento
+            </p>
+          )}
+          <FormProvider {...formCheckout}>
+            <PaymentMethods />
+          </FormProvider>
         </div>
       </div>
       <div className="col-span-2">
-        <h3 className="mb-4 font-ballo2 text-lg font-bold leading-tight text-base-subtitle">
-          Cafés selecionados
-        </h3>
-        <div className="rounded-md rounded-bl-[44px] rounded-tr-[44px] bg-base-card p-10">
-          <CoffeeInCart />
-          <CheckoutValues />
-          <form onSubmit={handleSubmit(teste)}>
-            <button className="mt-6 flex w-full items-center justify-center rounded-md bg-yellow p-3 text-sm font-bold uppercase leading-normal text-white">
-              Confirmar pedido
-            </button>
-          </form>
-        </div>
+        {cartCoffees.length >= 0 ? (
+          <>
+            <h3 className="mb-4 font-ballo2 text-lg font-bold leading-tight text-base-subtitle">
+              Cafés selecionados
+            </h3>
+            <div className="rounded-md rounded-bl-[44px] rounded-tr-[44px] bg-base-card p-10">
+              <CoffeeInCart />
+              <CheckoutValues />
+              <form onSubmit={handleSubmit(teste)}>
+                <button
+                  type="submit"
+                  className="mt-6 flex w-full items-center justify-center rounded-md bg-yellow p-3 text-sm font-bold uppercase leading-normal text-white"
+                >
+                  Confirmar pedido
+                </button>
+              </form>
+            </div>
+          </>
+        ) : (
+          <h3>
+            Seu carrinho está vazio, <a href="/">volte</a> pra escolher os cafés
+          </h3>
+        )}
       </div>
     </div>
   )

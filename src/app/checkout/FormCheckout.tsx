@@ -12,11 +12,12 @@ export function FormChekout() {
     const { localidade, logradouro, bairro, uf, cep } = await GetDataCep(
       location,
     )
+
     setValue('rua', logradouro)
     setValue('bairro', bairro)
     setValue('cidade', localidade)
     setValue('uf', uf)
-    setValue('cep', cep)
+    setValue('cep', cep ? cep.replace(/-/g, '') : cep)
   }, [setValue, location])
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export function FormChekout() {
 
   async function getDataWichCep() {
     const cep = getValues('cep')
-    if (cep.length && cep.length === 8) {
+    if (cep && cep.length === 8) {
       const { localidade, logradouro, bairro, uf } = await GetDataCep(cep)
       setValue('rua', logradouro)
       setValue('bairro', bairro)
@@ -50,9 +51,9 @@ export function FormChekout() {
         className="inputCheckout inputTextPlaceholder col-span-7"
       />
       <input
-        type="text"
+        type="number"
         placeholder="Número"
-        {...register('numero')}
+        {...register('numero', { valueAsNumber: true })}
         className="inputCheckout inputTextPlaceholder col-span-3"
       />
       <label

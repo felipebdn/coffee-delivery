@@ -30,6 +30,7 @@ module.exports = {
       background: '#FAFAFA',
       white: '#FFFFFF',
       transparent: 'transparent',
+      'error-color': '#FF4343',
     },
     fontFamily: {
       ballo2: ['var(--ballo-2)'],
