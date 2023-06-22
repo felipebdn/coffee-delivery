@@ -29,6 +29,7 @@ export function CoffeeContextProvider({ children }: { children: ReactNode }) {
     CoffeesReducer,
     [] as coffeesInCartTypes[],
   )
+
   useEffect(() => {
     const getItemFromLocalStorage = localStorage.getItem(
       'Coffee-delivery: coffee-cards-1.0.0',

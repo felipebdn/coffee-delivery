@@ -1,32 +1,38 @@
-import axios from 'axios'
-import { useState } from 'react'
+import { coffeesFormContext } from '@/context/coffeeFormContext'
+import { GetDataCep } from '@/lib/getDataCep'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-
-interface dataViaCepTypes {
-  cep: string
-  logradouro: string
-  complemento: string
-  bairro: string
-  localidade: string
-  uf: string
-  ibge: string
-  gia: string
-  ddd: string
-  siafi: string
-}
 
 export function FormChekout() {
   const [inputFocus, setInputFocus] = useState(false)
   const { register, getValues, setValue } = useFormContext()
+  const { location, handleLocation } = useContext(coffeesFormContext)
 
-  async function testeApi() {
+  const getCurrentLocation = useCallback(async () => {
+    const { localidade, logradouro, bairro, uf, cep } = await GetDataCep(
+      location,
+    )
+    setValue('rua', logradouro)
+    setValue('bairro', bairro)
+    setValue('cidade', localidade)
+    setValue('uf', uf)
+    setValue('cep', cep)
+  }, [setValue, location])
+
+  useEffect(() => {
+    getCurrentLocation()
+  }, [getCurrentLocation])
+
+  async function getDataWichCep() {
     const cep = getValues('cep')
-    if (cep.length === 8) {
-      const { data }: { data: dataViaCepTypes } = await axios.get(
-        `http://viacep.com.br/ws/${cep}/json/`,
-      )
-      console.log(data)
+    if (cep.length && cep.length === 8) {
+      const { localidade, logradouro, bairro, uf } = await GetDataCep(cep)
+      setValue('rua', logradouro)
+      setValue('bairro', bairro)
+      setValue('cidade', localidade)
+      setValue('uf', uf)
     }
+    if (cep !== location) handleLocation(cep)
   }
   return (
     <div className="grid grid-cols-7 gap-4">
@@ -34,7 +40,7 @@ export function FormChekout() {
         type="text"
         placeholder="CEP"
         {...register('cep')}
-        onBlur={testeApi}
+        onBlur={getDataWichCep}
         className="inputCheckout inputTextPlaceholder col-span-3"
       />
       <input
@@ -56,7 +62,7 @@ export function FormChekout() {
         <input
           type="text"
           placeholder="Complemento"
-          {...register('rua')}
+          {...register('complemento')}
           onFocus={() => setInputFocus(true)}
           onBlur={() => setInputFocus(false)}
           className="inputTextPlaceholder flex-1 bg-transparent outline-none"
