@@ -94,12 +94,12 @@ export default function Checkout() {
         </div>
       </div>
       <div className="col-span-2">
-        {cartCoffees.length >= 0 ? (
-          <>
-            <h3 className="mb-4 font-ballo2 text-lg font-bold leading-tight text-base-subtitle">
-              Cafés selecionados
-            </h3>
-            <div className="rounded-md rounded-bl-[44px] rounded-tr-[44px] bg-base-card p-10">
+        <h3 className="mb-4 font-ballo2 text-lg font-bold leading-tight text-base-subtitle">
+          Cafés selecionados
+        </h3>
+        <div className="rounded-md rounded-bl-[44px] rounded-tr-[44px] bg-base-card p-10">
+          {cartCoffees.length !== 0 ? (
+            <>
               <CoffeeInCart />
               <CheckoutValues />
               <form onSubmit={handleSubmit(teste)}>
@@ -110,13 +110,20 @@ export default function Checkout() {
                   Confirmar pedido
                 </button>
               </form>
-            </div>
-          </>
-        ) : (
-          <h3>
-            Seu carrinho está vazio, <a href="/">volte</a> pra escolher os cafés
-          </h3>
-        )}
+            </>
+          ) : (
+            <h3 className="font-ballo2 text-xl font-bold leading-tight text-base-subtitle">
+              Seu carrinho está vazio,{' '}
+              <a
+                href="/"
+                className="text-purple transition-opacity hover:opacity-70"
+              >
+                volte
+              </a>{' '}
+              e escolha seus cafés
+            </h3>
+          )}
+        </div>
       </div>
     </div>
   )
