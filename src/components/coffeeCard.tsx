@@ -1,13 +1,12 @@
 'use client'
 import { Check, Minus, Plus, ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
-import { formatCoffeeValue } from '@/lib/formatValueMoney'
 import { useContext, useState } from 'react'
 import { coffeeContext } from '@/context/coffeesContext'
 import { coffeesInCartTypes } from '@/reducers/coffees/reducer'
-import { Coffees } from '@/types/coffees'
+import { coffeesTypes } from '@/types/coffees'
 
-export function CoffeeCart({ coffee }: { coffee: Coffees }) {
+export function CoffeeCart({ coffee }: { coffee: coffeesTypes }) {
   const { handleAddCoffeeInCart, cartCoffees } = useContext(coffeeContext)
   const [amount, setAmount] = useState(0)
 
@@ -27,8 +26,8 @@ export function CoffeeCart({ coffee }: { coffee: Coffees }) {
     if (amount > 0) {
       const data: coffeesInCartTypes = {
         id: coffee.id,
-        price: coffee.price!,
-        coverUrl: coffee.coffeeImage?.url!,
+        price: coffee.price,
+        coverUrl: coffee.coffeeImage,
         amountCoffees: amount,
         coffeeName: coffee.name!,
       }
@@ -40,19 +39,19 @@ export function CoffeeCart({ coffee }: { coffee: Coffees }) {
     <article className="relative mt-5 flex w-full flex-col justify-between rounded-bl-[2.25rem] rounded-br-md rounded-tl-md rounded-tr-[2.25rem] bg-base-card px-6 pb-5">
       <div className="-mt-5 flex w-full flex-col items-center">
         <Image
-          src={coffee.coffeeImage?.url!}
+          src={coffee.coffeeImage}
           width={120}
           height={120}
           alt={coffee.name!}
         />
         <div className="flex w-full flex-wrap justify-center gap-1 pt-3">
-          {coffee.typeCoffeesPlural.map((type) => {
+          {coffee.typeCoffe.map((type, i) => {
             return (
               <span
-                key={type.id}
+                key={i}
                 className="rounded-full bg-yellow-light px-2 py-1 text-[10px] font-bold uppercase leading-tight text-yellow-dark"
               >
-                {type.typeName}
+                {type}
               </span>
             )
           })}
@@ -68,7 +67,7 @@ export function CoffeeCart({ coffee }: { coffee: Coffees }) {
         <div className="text-sm font-normal leading-tight text-base-text">
           R${' '}
           <span className="font-ballo2 text-2xl leading-tight text-base-text">
-            {formatCoffeeValue(coffee.price!)}
+            {coffee.price}
           </span>
         </div>
         <aside className="flex gap-2">

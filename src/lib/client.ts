@@ -1,15 +1,8 @@
-import { GraphQLClient } from 'graphql-request'
-export { gql } from 'graphql-request'
+import Stripe from 'stripe'
 
-export const graphqlClient = new GraphQLClient(
-  process.env.NEXT_PUBLIC_HYGRAPH_URL as string,
-  {
-    headers: {
-      Authorization: `Bearer ${
-        process.env.NEXT_PUBLIC_HYGRAPH_TOKEN as string
-      }`,
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
+export const stripe = new Stripe(process.env.NEXT_SECRET_STRIPE!, {
+  apiVersion: '2022-11-15',
+  appInfo: {
+    name: 'Ignite Shop',
   },
-)
+})

@@ -6,7 +6,7 @@ export interface coffeesInCartTypes {
   coffeeName: string
   amountCoffees: number
   coverUrl: string
-  price: number
+  price: string | 0 | null
 }
 export const initialValues: coffeesInCartTypes[] = [
   {

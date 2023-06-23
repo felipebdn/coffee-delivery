@@ -1,33 +1,27 @@
 import { CoffeeCart } from '@/components/coffeeCard'
 import { Hero } from '@/components/hero'
-import { gql, graphqlClient } from '../lib/client'
-import { Coffees } from '@/types/coffees'
-
+import { stripe } from '@/lib/client'
+import { formatCoffeeValue } from '@/lib/formatValueMoney'
+import Stripe from 'stripe'
+// export const revalidate = 60 * 60 * 24 * 3 // 3 dias
 export const revalidate = 0
 
-const GetTest = gql`
-  query GetTest {
-    coffeesPlural {
-      createdAt
-      name
-      id
-      price
-      description
-      typeCoffeesPlural(orderBy: typeName_ASC) {
-        createdAt
-        id
-        typeName
-      }
-      coffeeImage {
-        id
-        url
-      }
-    }
-  }
-`
 export default async function Home() {
-  const { coffeesPlural }: { coffeesPlural: Coffees[] } =
-    await graphqlClient.request(GetTest)
+  const res = await stripe.products.list({
+    expand: ['data.default_price'],
+  })
+  const coffees = res.data.map((coffee) => {
+    const price = coffee.default_price as Stripe.Price
+    const metadata = coffee.metadata as Stripe.Metadata
+    return {
+      id: coffee.id,
+      name: coffee.name,
+      typeCoffe: metadata.tipoCoffee.split(' - '),
+      coffeeImage: coffee.images[0],
+      description: coffee.description,
+      price: price.unit_amount && formatCoffeeValue(price.unit_amount / 100),
+    }
+  })
 
   return (
     <>
@@ -37,8 +31,8 @@ export default async function Home() {
           Nossos cafés
         </h3>
         <main className="grid grid-cols-4 gap-8">
-          {coffeesPlural &&
-            coffeesPlural.map((coffee) => {
+          {coffees &&
+            coffees.map((coffee) => {
               return <CoffeeCart coffee={coffee} key={coffee.id} />
             })}
         </main>

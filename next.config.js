@@ -9,10 +9,9 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: 'media.graphassets.com',
+        hostname: 'files.stripe.com',
       },
     ],
-    dangerouslyAllowSVG: true,
   },
 }
 
