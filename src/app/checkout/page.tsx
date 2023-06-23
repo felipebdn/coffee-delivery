@@ -4,13 +4,15 @@ import { FormProvider, useForm } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DollarSign, MapPin } from 'lucide-react'
+import { useContext, useState } from 'react'
+import { Root as RootDialog } from '@radix-ui/react-dialog'
 
 import { FormChekout } from './FormCheckout'
 import { CoffeeInCart } from '@/components/coffeesInCart'
 import { CheckoutValues } from './CheckoutValues'
 import { PaymentMethods } from './PaymentMethods'
-import { useContext } from 'react'
 import { coffeeContext } from '@/context/coffeesContext'
+import { ModalSuccess } from '@/components/ModalSuccess'
 
 const checkoutSchema = zod.object({
   cep: zod.string().min(8).max(8),
@@ -29,6 +31,7 @@ export default function Checkout() {
   const formCheckout = useForm<CheckoutTypes>({
     resolver: zodResolver(checkoutSchema),
   })
+  const [open, setOpen] = useState(true)
   const { cartCoffees } = useContext(coffeeContext)
   const {
     handleSubmit,
@@ -125,6 +128,10 @@ export default function Checkout() {
           )}
         </div>
       </div>
+
+      <RootDialog open={open} onOpenChange={() => open && setOpen(false)}>
+        <ModalSuccess />
+      </RootDialog>
     </div>
   )
 }
