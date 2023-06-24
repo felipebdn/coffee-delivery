@@ -1,12 +1,35 @@
+'use client'
 import Image from 'next/image'
 import ImageDelivery from '../../assets/images/delivery.png'
 import { OrderInfoSuccess } from '@/components/OrderInfoSuccess'
-import { PageProps } from '@/types/coffees'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useCallback, useEffect } from 'react'
+import axios from 'axios'
 
-export default async function Success({
-  searchParams: { session_id: sessionId },
-}: PageProps) {
-  console.log(sessionId)
+export default function Success() {
+  const router = useRouter()
+  const SearchParams = useSearchParams()
+  const sessionId = SearchParams.get('session_id')
+
+  if (!sessionId) {
+    router.push('/')
+  }
+
+  const getSession = useCallback(async () => {
+    try {
+      const res = await axios.get('/api/session', {
+        params: {
+          sessionId,
+        },
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }, [sessionId])
+
+  useEffect(() => {
+    getSession()
+  }, [getSession])
 
   return (
     <section className="flex w-full flex-col gap-10">
