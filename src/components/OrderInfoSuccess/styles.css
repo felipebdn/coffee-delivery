@@ -1,0 +1,11 @@
+.gradientSuccess{
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(
+        to bottom right,
+        #DBAC2C,
+        #8047F8
+      )
+      border-box;
+  border-radius: 6px 36px;
+  border: 2px solid transparent;
+}

@@ -1,25 +1,26 @@
 import { CoffeeCart } from '@/components/coffeeCard'
 import { Hero } from '@/components/hero'
 import { stripe } from '@/lib/client'
-import { formatCoffeeValue } from '@/lib/formatValueMoney'
 import Stripe from 'stripe'
-// export const revalidate = 60 * 60 * 24 * 3 // 3 dias
-export const revalidate = 0
+
+export const revalidate = 60 * 60 * 24 * 3 // 3 dias
 
 export default async function Home() {
   const res = await stripe.products.list({
     expand: ['data.default_price'],
   })
+
   const coffees = res.data.map((coffee) => {
     const price = coffee.default_price as Stripe.Price
     const metadata = coffee.metadata as Stripe.Metadata
     return {
       id: coffee.id,
       name: coffee.name,
-      typeCoffe: metadata.tipoCoffee.split(' - '),
+      typeCoffe: metadata.tipoCoffee?.split(' - '),
       coffeeImage: coffee.images[0],
       description: coffee.description,
-      price: price.unit_amount && formatCoffeeValue(price.unit_amount / 100),
+      price: price.unit_amount && price.unit_amount / 100,
+      defaultPriceId: price.id,
     }
   })
 

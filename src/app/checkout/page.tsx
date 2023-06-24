@@ -13,6 +13,7 @@ import { CheckoutValues } from './CheckoutValues'
 import { PaymentMethods } from './PaymentMethods'
 import { coffeeContext } from '@/context/coffeesContext'
 import { ModalSuccess } from '@/components/ModalSuccess'
+import axios from 'axios'
 
 const checkoutSchema = zod.object({
   cep: zod.string().min(8).max(8),
@@ -31,15 +32,26 @@ export default function Checkout() {
   const formCheckout = useForm<CheckoutTypes>({
     resolver: zodResolver(checkoutSchema),
   })
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const { cartCoffees } = useContext(coffeeContext)
   const {
     handleSubmit,
     formState: { errors },
   } = formCheckout
 
-  function teste(data: CheckoutTypes) {
-    console.log(data)
+  async function teste(data: CheckoutTypes) {
+    try {
+      const res = await axios.post('/api/checkout', {
+        coffees: cartCoffees,
+        payMethods: data.methodPayment,
+      })
+
+      const { checkoutUrl } = res.data
+
+      window.location.href = checkoutUrl
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (

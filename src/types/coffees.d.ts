@@ -4,5 +4,10 @@ export interface coffeesTypes {
   typeCoffe: string[]
   coffeeImage: string
   description: string | null
-  price: string | 0 | null
+  price: number | null
+  defaultPriceId: string
+}
+export interface PageProps {
+  params?: any
+  searchParams?: any
 }

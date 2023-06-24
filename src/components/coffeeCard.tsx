@@ -5,6 +5,7 @@ import { useContext, useState } from 'react'
 import { coffeeContext } from '@/context/coffeesContext'
 import { coffeesInCartTypes } from '@/reducers/coffees/reducer'
 import { coffeesTypes } from '@/types/coffees'
+import { formatCoffeeValue } from '@/lib/formatValueMoney'
 
 export function CoffeeCart({ coffee }: { coffee: coffeesTypes }) {
   const { handleAddCoffeeInCart, cartCoffees } = useContext(coffeeContext)
@@ -26,10 +27,11 @@ export function CoffeeCart({ coffee }: { coffee: coffeesTypes }) {
     if (amount > 0) {
       const data: coffeesInCartTypes = {
         id: coffee.id,
-        price: coffee.price,
+        price: coffee.price ? coffee.price : 0,
         coverUrl: coffee.coffeeImage,
         amountCoffees: amount,
         coffeeName: coffee.name!,
+        priceId: coffee.defaultPriceId,
       }
       handleAddCoffeeInCart(data)
     }
@@ -67,7 +69,7 @@ export function CoffeeCart({ coffee }: { coffee: coffeesTypes }) {
         <div className="text-sm font-normal leading-tight text-base-text">
           R${' '}
           <span className="font-ballo2 text-2xl leading-tight text-base-text">
-            {coffee.price}
+            {coffee.price && formatCoffeeValue(coffee.price)}
           </span>
         </div>
         <aside className="flex gap-2">

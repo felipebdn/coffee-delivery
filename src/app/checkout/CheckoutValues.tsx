@@ -1,11 +1,24 @@
 import { coffeeContext } from '@/context/coffeesContext'
 import { formatCoffeeValue } from '@/lib/formatValueMoney'
-import { useContext } from 'react'
+import axios from 'axios'
+import { useCallback, useContext, useEffect, useState } from 'react'
 
 export function CheckoutValues() {
   const { cartCoffees } = useContext(coffeeContext)
+  const [delivery, setDelivery] = useState(0)
+
+  const GetDelivery = useCallback(async () => {
+    try {
+      const res = await axios.get('/api/delivery')
+      setDelivery(res.data.deliveryValue)
+    } catch (error) {}
+  }, [])
+
+  useEffect(() => {
+    GetDelivery()
+  }, [GetDelivery])
+
   // const { delivery, setDelivery } = useState(3.5)
-  const delivery = 3.5
   const totalValueOfCoffees = cartCoffees.reduce((value, coffee) => {
     return coffee.price * coffee.amountCoffees + value
   }, 0)

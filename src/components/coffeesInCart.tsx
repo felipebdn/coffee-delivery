@@ -14,6 +14,8 @@ export function CoffeeInCart() {
   return (
     <div className="flex flex-col gap-6">
       {cartCoffees.map((coffee) => {
+        console.log(coffee.price)
+
         return (
           <div
             key={coffee.id}
@@ -58,7 +60,9 @@ export function CoffeeInCart() {
               </div>
             </div>
             <span className="text-base font-bold leading-tight text-base-text">
-              R$ {formatCoffeeValue(coffee.price * coffee.amountCoffees)}
+              R${' '}
+              {coffee.price &&
+                formatCoffeeValue(coffee.price * coffee.amountCoffees)}
             </span>
           </div>
         )
