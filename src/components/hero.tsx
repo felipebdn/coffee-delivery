@@ -4,8 +4,8 @@ import hero from '../assets/images/hero.svg'
 
 export function Hero() {
   return (
-    <aside className="grid w-full grid-cols-9 gap-8 py-20">
-      <div className="col-span-5 flex flex-col justify-between">
+    <aside className="flex w-full grid-cols-9 gap-8 py-20 lg:grid">
+      <div className="col-span-5 flex flex-col justify-between gap-4">
         <div className="flex flex-col gap-4">
           <h1 className="self-stretch font-ballo2 text-5xl font-extrabold leading-tight text-base-title">
             Encontre o café perfeito para qualquer hora do dia
@@ -15,7 +15,7 @@ export function Hero() {
             hora
           </h4>
         </div>
-        <div className="flex justify-between gap-4">
+        <div className="flexc flex justify-between gap-4 max-sm:flex-col max-sm:gap-5">
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-3">
               <span className="rounded-full bg-yellow-dark p-2 text-background">
@@ -54,7 +54,7 @@ export function Hero() {
           </div>
         </div>
       </div>
-      <div className="col-span-4 flex flex-1 items-center justify-center">
+      <div className="col-span-4 hidden flex-1 items-center justify-center lg:flex">
         <Image src={hero} alt="" className="w-4/5" />
       </div>
     </aside>

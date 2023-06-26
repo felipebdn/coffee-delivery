@@ -50,7 +50,7 @@ export function Header() {
   }
 
   return (
-    <header className="flex w-full justify-between py-8">
+    <header className="flex w-full justify-between py-4  md:py-8">
       <a href="/">
         <Image src={logo} alt="" height={40} />
       </a>

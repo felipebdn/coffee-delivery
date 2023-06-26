@@ -58,7 +58,7 @@ export function FormChekout() {
       />
       <label
         aria-pressed={inputFocus}
-        className="inputCheckout col-span-4 flex items-center aria-pressed:border-yellow-dark"
+        className="inputCheckout col-span-4 flex items-center aria-pressed:border-yellow-dark max-[640px]:col-span-7"
       >
         <input
           type="text"
@@ -73,19 +73,19 @@ export function FormChekout() {
         </span>
       </label>
       <input
-        className="inputCheckout inputTextPlaceholder col-span-3"
+        className="inputCheckout inputTextPlaceholder col-span-3 max-[640px]:col-span-7"
         type="text"
         placeholder="Bairro"
         {...register('bairro')}
       />
       <input
-        className="inputCheckout inputTextPlaceholder col-span-3"
+        className="inputCheckout inputTextPlaceholder col-span-3 max-[640px]:col-span-5"
         type="text"
         placeholder="Cidade"
         {...register('cidade')}
       />
       <input
-        className="inputCheckout inputTextPlaceholder col-span-1"
+        className="inputCheckout inputTextPlaceholder col-span-1 max-[640px]:col-span-2"
         type="text"
         placeholder="UF"
         {...register('uf')}

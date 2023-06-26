@@ -65,7 +65,7 @@ export function CoffeeCart({ coffee }: { coffee: coffeesTypes }) {
           {coffee.description}
         </p>
       </div>
-      <div className="mt-8 flex items-center justify-between">
+      <div className="mt-8 flex items-center justify-between max-[540px]:justify-evenly">
         <div className="text-sm font-normal leading-tight text-base-text">
           R${' '}
           <span className="font-ballo2 text-2xl leading-tight text-base-text">

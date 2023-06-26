@@ -60,7 +60,7 @@ export default function Checkout() {
   }
 
   return (
-    <div className="grid grid-cols-5 gap-8">
+    <div className="grid grid-cols-5 gap-8 max-[960px]:flex max-[960px]:flex-col-reverse">
       <div className="col-span-3 flex flex-col gap-3">
         <h3 className="mb-1 font-ballo2 text-lg font-bold leading-tight text-base-subtitle">
           Complete seu pedido

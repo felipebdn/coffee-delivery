@@ -14,7 +14,7 @@ export function PaymentMethods() {
           <RadioGroup.Root
             value={field.value}
             onValueChange={(value) => field.onChange(value)}
-            className="grid grid-cols-3 gap-3"
+            className="grid grid-cols-3 gap-3 max-[640px]:flex max-[640px]:flex-col"
           >
             <RadioGroup.Item
               value="credit"
@@ -26,8 +26,9 @@ export function PaymentMethods() {
               </span>
             </RadioGroup.Item>
             <RadioGroup.Item
+              disabled={true}
               value="debit"
-              className="flex items-center justify-center gap-3 rounded-md border border-transparent bg-purple-light p-4 data-[state=checked]:border-purple"
+              className="flex items-center justify-center gap-3 rounded-md border border-transparent bg-purple-light p-4 disabled:cursor-not-allowed disabled:bg-base-hover data-[state=checked]:border-purple"
             >
               <Landmark size={16} className="text-purple" />
               <span className="text-xs font-normal uppercase leading-normal text-base-text">
@@ -35,8 +36,9 @@ export function PaymentMethods() {
               </span>
             </RadioGroup.Item>
             <RadioGroup.Item
+              disabled={true}
               value="money"
-              className="flex items-center justify-center gap-3 rounded-md border border-transparent bg-purple-light p-4 data-[state=checked]:border-purple"
+              className="flex items-center justify-center gap-3 rounded-md border border-transparent bg-purple-light p-4 disabled:cursor-not-allowed disabled:bg-base-hover data-[state=checked]:border-purple"
             >
               <CreditCard size={16} className="text-purple" />
               <span className="text-xs font-normal uppercase leading-normal text-base-text">

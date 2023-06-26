@@ -31,7 +31,7 @@ export default async function Home() {
         <h3 className="mb-8 font-ballo2 text-3xl font-extrabold leading-tight text-base-subtitle">
           Nossos cafés
         </h3>
-        <main className="grid grid-cols-4 gap-8">
+        <main className="grid grid-cols-4 gap-8 max-desktop:grid-cols-3 max-[840px]:grid-cols-2 max-[540px]:grid-cols-1">
           {coffees &&
             coffees.map((coffee) => {
               return <CoffeeCart coffee={coffee} key={coffee.id} />
