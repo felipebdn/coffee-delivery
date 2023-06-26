@@ -4,7 +4,6 @@ import { coffeesFormContext } from '@/context/coffeeFormContext'
 import { useContext } from 'react'
 export function OrderInfoSuccess() {
   const { dataForm } = useContext(coffeesFormContext)
-  console.log(dataForm)
 
   const { methodPayment } = dataForm
   const getMethodPayment = () => {

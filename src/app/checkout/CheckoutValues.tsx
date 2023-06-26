@@ -10,7 +10,6 @@ export function CheckoutValues() {
   const GetDelivery = useCallback(async () => {
     try {
       const res = await axios.get('/api/delivery')
-      console.log(res)
 
       setDelivery(res.data.deliveryValue)
     } catch (error) {}

@@ -14,8 +14,6 @@ export function CoffeeInCart() {
   return (
     <div className="flex flex-col gap-6">
       {cartCoffees.map((coffee) => {
-        console.log(coffee.price)
-
         return (
           <div
             key={coffee.id}
