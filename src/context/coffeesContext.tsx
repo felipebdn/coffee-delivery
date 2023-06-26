@@ -4,6 +4,7 @@ import {
   InitRestore,
   RemoveCoffeeInCart,
   changeAmountCoffeeInCart,
+  rezetCoffeeInCart,
 } from '@/reducers/coffees/actions'
 import {
   CoffeesReducer,
@@ -20,6 +21,7 @@ interface coffeeContextTypes {
   ) => void
   handleAddCoffeeInCart: (data: coffeesInCartTypes) => void
   handleRemoveCoffeeInCart: (id: string) => void
+  handleRezetCoffeeInCart: () => void
 }
 
 export const coffeeContext = createContext({} as coffeeContextTypes)
@@ -63,10 +65,14 @@ export function CoffeeContextProvider({ children }: { children: ReactNode }) {
   function handleRemoveCoffeeInCart(id: string) {
     dispatch(RemoveCoffeeInCart(id))
   }
+  function handleRezetCoffeeInCart() {
+    dispatch(rezetCoffeeInCart())
+  }
 
   return (
     <coffeeContext.Provider
       value={{
+        handleRezetCoffeeInCart,
         cartCoffees,
         handleChangeAmountCoffeeInCart,
         handleAddCoffeeInCart,

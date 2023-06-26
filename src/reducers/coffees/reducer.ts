@@ -57,9 +57,10 @@ export function CoffeesReducer(
           draft.push(initialValues[0])
         }
       })
-    case 'INIT_RESTORE': {
+    case 'INIT_RESTORE':
       return actions.payload.data
-    }
+    case 'RESET_COFFEES':
+      return []
 
     default:
       return state

@@ -14,6 +14,7 @@ import { PaymentMethods } from './PaymentMethods'
 import { coffeeContext } from '@/context/coffeesContext'
 import { ModalSuccess } from '@/components/ModalSuccess'
 import axios from 'axios'
+import { coffeesFormContext } from '@/context/coffeeFormContext'
 
 const checkoutSchema = zod.object({
   cep: zod.string().min(8).max(8),
@@ -26,14 +27,15 @@ const checkoutSchema = zod.object({
   methodPayment: zod.enum(['money', 'debit', 'credit']),
 })
 
-type CheckoutTypes = zod.infer<typeof checkoutSchema>
+export type CheckoutTypes = zod.infer<typeof checkoutSchema>
 
 export default function Checkout() {
   const formCheckout = useForm<CheckoutTypes>({
     resolver: zodResolver(checkoutSchema),
   })
   const [open, setOpen] = useState(false)
-  const { cartCoffees } = useContext(coffeeContext)
+  const { cartCoffees, handleRezetCoffeeInCart } = useContext(coffeeContext)
+  const { handleDataForm } = useContext(coffeesFormContext)
   const {
     handleSubmit,
     formState: { errors },
@@ -41,12 +43,15 @@ export default function Checkout() {
 
   async function teste(data: CheckoutTypes) {
     try {
+      handleDataForm(data)
       const res = await axios.post('/api/checkout', {
         coffees: cartCoffees,
         payMethods: data.methodPayment,
       })
 
       const { checkoutUrl } = res.data
+
+      handleRezetCoffeeInCart()
 
       window.location.href = checkoutUrl
     } catch (err) {

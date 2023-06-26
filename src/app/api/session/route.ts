@@ -1,9 +1,10 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
-  console.log(res)
+export async function GET(req: NextRequest, res: NextResponse) {
+  const { searchParams } = new URL(req.url)
+  const sessionId = searchParams.get('sessionId')
 
-  return {
-    data: 'teste',
-  }
+  return NextResponse.json({
+    data: sessionId,
+  })
 }

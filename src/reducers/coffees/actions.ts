@@ -25,12 +25,16 @@ interface INIT_RESTORE {
     data: coffeesInCartTypes[]
   }
 }
+interface RESET_COFFEES {
+  type: 'RESET_COFFEES'
+}
 
 export type Actions =
   | ADD_COFFEE_IN_CART
   | CHANGE_AMOUNT_COFFEE_IN_CART
   | REMOVE_COFFEE_IN_CART
   | INIT_RESTORE
+  | RESET_COFFEES
 
 export function InitRestore(data: coffeesInCartTypes[]): Actions {
   return {
@@ -67,5 +71,10 @@ export function RemoveCoffeeInCart(id: string): Actions {
     payload: {
       id,
     },
+  }
+}
+export function rezetCoffeeInCart(): Actions {
+  return {
+    type: 'RESET_COFFEES',
   }
 }
