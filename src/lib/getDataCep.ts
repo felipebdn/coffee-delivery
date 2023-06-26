@@ -16,7 +16,7 @@ interface dataViaCepTypes {
 export async function GetDataCep(cep: string) {
   try {
     const res = await axios.get(
-      `http://viacep.com.br/ws/${cep || '00000000'}/json/`,
+      `https://viacep.com.br/ws/${cep || '00000000'}/json/`,
     )
     console.log(res)
 
