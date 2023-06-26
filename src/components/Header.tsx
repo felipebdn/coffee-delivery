@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import logo from '../assets/images/logo.svg'
-import { Edit3, MapPin, Search, ShoppingCart } from 'lucide-react'
+import { Edit3, MapPin, Search, ShoppingCart, X } from 'lucide-react'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { coffeeContext } from '@/context/coffeesContext'
 import * as zod from 'zod'
@@ -52,6 +52,9 @@ export function Header() {
       setStringLocation(stringLocation)
     }
   }
+  function resetCepLocation() {
+    handleLocation('')
+  }
 
   return (
     <header className="flex w-full justify-between py-4  md:py-8">
@@ -60,27 +63,36 @@ export function Header() {
       </a>
       <div className="flex gap-3">
         {stringLocation ? (
-          <div className="flex items-center gap-1 rounded-md bg-purple-light p-2 text-sm text-purple-dark">
-            <MapPin size={22} />
-            <p>{stringLocation}</p>
+          <div className="group relative flex items-center gap-2">
+            <div className="flex items-center gap-1 rounded-md bg-purple-light p-2 text-sm text-purple-dark transition-transform min-[500px]:group-hover:-translate-x-12">
+              <MapPin size={22} />
+              <p>{stringLocation}</p>
+            </div>
+            <button
+              onClick={resetCepLocation}
+              className="absolute right-0 -z-10 flex rounded-md bg-error-color bg-opacity-60 p-2 text-base-subtitle outline-none group-hover:z-10 max-[499px]:transition-transform max-[499px]:group-hover:translate-y-12"
+            >
+              <X size={22} />
+            </button>
           </div>
         ) : (
           <form
             onSubmit={handleSubmit(SubmitCep)}
-            className="flex items-center gap-2"
+            className="relative flex items-center gap-2"
           >
-            <div className="flex items-center gap-2 rounded-md bg-purple-light p-2 text-sm text-purple-dark">
+            <div className="peer flex min-w-fit items-center gap-2 rounded-md bg-purple-light p-2 text-sm text-purple-dark transition-transform min-[500px]:focus-within:-translate-x-12">
               <Edit3 size={22} />
               <input
                 type="text"
+                autoComplete="off"
                 {...register('cep')}
-                className="h-full flex-1 bg-transparent outline-none placeholder:text-sm placeholder:text-purple-dark"
+                className="flex h-full w-24 min-w-fit bg-transparent outline-none placeholder:text-sm placeholder:text-purple-dark"
                 placeholder="Digite seu cep"
               />
             </div>
             <button
               type="submit"
-              className="relative flex rounded-md bg-purple-light p-2 text-base-subtitle"
+              className="absolute right-0 -z-10 flex rounded-md bg-purple-light p-2 text-base-subtitle transition-transform peer-focus-within:z-10 max-[499px]:peer-focus-within:translate-y-12"
             >
               <Search size={22} />
             </button>

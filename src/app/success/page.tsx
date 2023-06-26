@@ -23,7 +23,7 @@ export default function Success() {
           Agora é só aguardar que logo o café chegará até você
         </p>
       </header>
-      <main className="flex items-center justify-between gap-24">
+      <main className="flex items-center justify-between gap-10 max-md:flex-col-reverse max-md:gap-10 lg:gap-24">
         <OrderInfoSuccess />
         <aside>
           <Image
