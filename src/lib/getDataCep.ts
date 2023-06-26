@@ -18,7 +18,6 @@ export async function GetDataCep(cep: string) {
     const res = await axios.get(
       `https://viacep.com.br/ws/${cep || '00000000'}/json/`,
     )
-    console.log(res)
 
     const data: dataViaCepTypes | undefined = res.data
 
