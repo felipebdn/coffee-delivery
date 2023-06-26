@@ -19,8 +19,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.error()
   }
 
-  const successUrl = `${process.env.NEXT_URL}/success?session_id={CHECKOUT_SESSION_ID}`
-  const cancelUrl = `${process.env.NEXT_URL}/`
+  const successUrl = `${process.env.URL_APPLICATION}/success?session_id={CHECKOUT_SESSION_ID}`
+  const cancelUrl = `${process.env.URL_APPLICATION}/`
 
   const params: Stripe.Checkout.SessionCreateParams = {
     success_url: successUrl,
