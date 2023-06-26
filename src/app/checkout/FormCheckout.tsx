@@ -9,15 +9,15 @@ export function FormChekout() {
   const { location, handleLocation } = useContext(coffeesFormContext)
 
   const getCurrentLocation = useCallback(async () => {
-    const { localidade, logradouro, bairro, uf, cep } = await GetDataCep(
-      location,
-    )
-
-    setValue('rua', logradouro)
-    setValue('bairro', bairro)
-    setValue('cidade', localidade)
-    setValue('uf', uf)
-    setValue('cep', cep ? cep.replace(/-/g, '') : cep)
+    const dataCep = await GetDataCep(location)
+    if (dataCep) {
+      const { localidade, bairro, logradouro, uf, cep } = dataCep
+      setValue('rua', logradouro)
+      setValue('bairro', bairro)
+      setValue('cidade', localidade)
+      setValue('uf', uf)
+      setValue('cep', cep ? cep.replace(/-/g, '') : cep)
+    }
   }, [setValue, location])
 
   useEffect(() => {
@@ -27,11 +27,14 @@ export function FormChekout() {
   async function getDataWichCep() {
     const cep = getValues('cep')
     if (cep && cep.length === 8) {
-      const { localidade, logradouro, bairro, uf } = await GetDataCep(cep)
-      setValue('rua', logradouro)
-      setValue('bairro', bairro)
-      setValue('cidade', localidade)
-      setValue('uf', uf)
+      const dataCep = await GetDataCep(cep)
+      if (dataCep) {
+        const { bairro, localidade, logradouro, uf } = dataCep
+        setValue('rua', logradouro)
+        setValue('bairro', bairro)
+        setValue('cidade', localidade)
+        setValue('uf', uf)
+      }
     }
     if (cep !== location) handleLocation(cep)
   }

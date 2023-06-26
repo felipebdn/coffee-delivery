@@ -24,8 +24,10 @@ export function Header() {
   const setCurrentLocationFromCep = useCallback(async () => {
     if (location) {
       const data = await GetDataCep(location)
-      const stringLocation = `${data.localidade}, ${data.uf}`
-      setStringLocation(stringLocation)
+      if (data) {
+        const stringLocation = `${data.localidade}, ${data.uf}`
+        setStringLocation(stringLocation)
+      }
     }
   }, [location])
 
@@ -44,9 +46,11 @@ export function Header() {
 
   async function SubmitCep({ cep }: cepChemaType) {
     const data = await GetDataCep(cep)
-    const stringLocation = `${data.localidade}, ${data.uf}`
     handleLocation(cep)
-    setStringLocation(stringLocation)
+    if (data) {
+      const stringLocation = `${data.localidade}, ${data.uf}`
+      setStringLocation(stringLocation)
+    }
   }
 
   return (
