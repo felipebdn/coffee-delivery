@@ -46,7 +46,7 @@
 - Tailwindcss
 - Axios
 - React-Rook-Form
--Immer
+- Immer
 - Zod
 - Stripe
 - TypeScript
