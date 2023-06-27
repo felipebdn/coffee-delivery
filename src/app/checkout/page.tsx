@@ -125,7 +125,7 @@ export default function Checkout() {
               <form onSubmit={handleSubmit(teste)}>
                 <button
                   type="submit"
-                  className="mt-6 flex w-full items-center justify-center rounded-md bg-yellow p-3 text-sm font-bold uppercase leading-normal text-white"
+                  className="mt-6 flex w-full items-center justify-center rounded-md bg-yellow p-3 text-sm font-bold uppercase leading-normal text-white transition-colors hover:bg-yellow-dark"
                 >
                   Confirmar pedido
                 </button>

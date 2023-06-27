@@ -18,7 +18,8 @@ type cepChemaType = zod.infer<typeof cepSchema>
 
 export function Header() {
   const { cartCoffees } = useContext(coffeeContext)
-  const { location, handleLocation } = useContext(coffeesFormContext)
+  const { location, handleLocation, handleDeleteLocation } =
+    useContext(coffeesFormContext)
   const [stringLocation, setStringLocation] = useState('')
 
   const setCurrentLocationFromCep = useCallback(async () => {
@@ -53,7 +54,8 @@ export function Header() {
     }
   }
   function resetCepLocation() {
-    handleLocation('')
+    handleDeleteLocation()
+    setStringLocation('')
   }
 
   return (
@@ -92,7 +94,7 @@ export function Header() {
             </div>
             <button
               type="submit"
-              className="absolute right-0 -z-10 flex rounded-md bg-purple-light p-2 text-base-subtitle transition-transform peer-focus-within:z-10 max-[499px]:peer-focus-within:translate-y-12"
+              className="absolute right-0 -z-10 flex rounded-md bg-purple-light p-2 text-base-subtitle outline-none transition-all delay-75 peer-focus-within:z-10 max-[499px]:peer-focus-within:translate-y-12"
             >
               <Search size={22} />
             </button>

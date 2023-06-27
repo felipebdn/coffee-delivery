@@ -7,6 +7,7 @@ interface coffeesFormContextTypes {
   handleLocation: (local: string) => void
   dataForm: CheckoutTypes
   handleDataForm: (data: CheckoutTypes) => void
+  handleDeleteLocation: () => void
 }
 
 export const coffeesFormContext = createContext({} as coffeesFormContextTypes)
@@ -46,9 +47,20 @@ export function CoffeeFormProvider({ children }: { children: ReactNode }) {
     setDataForm(data)
   }
 
+  function handleDeleteLocation() {
+    setLocation('')
+    localStorage.removeItem('Coffee-delivery: location-1.1.0')
+  }
+
   return (
     <coffeesFormContext.Provider
-      value={{ handleDataForm, dataForm, location, handleLocation }}
+      value={{
+        handleDeleteLocation,
+        handleDataForm,
+        dataForm,
+        location,
+        handleLocation,
+      }}
     >
       {children}
     </coffeesFormContext.Provider>

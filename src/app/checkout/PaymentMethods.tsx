@@ -18,7 +18,7 @@ export function PaymentMethods() {
           >
             <RadioGroup.Item
               value="credit"
-              className="flex items-center justify-center gap-3 rounded-md border border-transparent bg-purple-light p-4 data-[state=checked]:border-purple"
+              className="flex items-center justify-center gap-3 rounded-md border border-transparent bg-purple-light p-4 transition-colors hover:bg-base-hover data-[state=checked]:border-purple"
             >
               <CreditCard size={16} className="text-purple" />
               <span className="text-xs font-normal uppercase leading-normal text-base-text">
@@ -28,7 +28,7 @@ export function PaymentMethods() {
             <RadioGroup.Item
               disabled={true}
               value="debit"
-              className="flex items-center justify-center gap-3 rounded-md border border-transparent bg-purple-light p-4 disabled:cursor-not-allowed disabled:bg-base-hover data-[state=checked]:border-purple"
+              className="flex items-center justify-center gap-3 rounded-md border border-transparent bg-purple-light p-4 transition-colors hover:bg-base-hover disabled:cursor-not-allowed disabled:bg-base-button data-[state=checked]:border-purple"
             >
               <Landmark size={16} className="text-purple" />
               <span className="text-xs font-normal uppercase leading-normal text-base-text">
@@ -38,7 +38,7 @@ export function PaymentMethods() {
             <RadioGroup.Item
               disabled={true}
               value="money"
-              className="flex items-center justify-center gap-3 rounded-md border border-transparent bg-purple-light p-4 disabled:cursor-not-allowed disabled:bg-base-hover data-[state=checked]:border-purple"
+              className="flex items-center justify-center gap-3 rounded-md border border-transparent bg-purple-light p-4 transition-colors hover:bg-base-hover disabled:cursor-not-allowed disabled:bg-base-button data-[state=checked]:border-purple"
             >
               <CreditCard size={16} className="text-purple" />
               <span className="text-xs font-normal uppercase leading-normal text-base-text">

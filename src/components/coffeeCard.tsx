@@ -73,14 +73,20 @@ export function CoffeeCart({ coffee }: { coffee: coffeesTypes }) {
           </span>
         </div>
         <aside className="flex gap-2">
-          <div className="flex h-9 items-center gap-2 rounded-md bg-base-button px-2 text-purple-dark">
-            <button onClick={handleAmountSubstract}>
+          <div className="flex h-9 items-center gap-2 rounded-md bg-base-button px-2">
+            <button
+              onClick={handleAmountSubstract}
+              className="text-purple transition-colors hover:text-purple-dark"
+            >
               <Minus size={14} strokeWidth={3} />
             </button>
             <span className="text-center text-base font-normal leading-tight text-base-title">
               {isCoffeeInCart ? filterCoffeeInCart[0].amountCoffees : amount}
             </span>
-            <button onClick={handleAmountAdd}>
+            <button
+              onClick={handleAmountAdd}
+              className="text-purple transition-colors hover:text-purple-dark"
+            >
               <Plus size={14} strokeWidth={3} />
             </button>
           </div>
@@ -88,7 +94,7 @@ export function CoffeeCart({ coffee }: { coffee: coffeesTypes }) {
             aria-pressed={isCoffeeInCart}
             onClick={handleAddCoffeeInCartFromHome}
             disabled={isCoffeeInCart}
-            className="flex h-9 w-9 items-center justify-center rounded-md bg-purple-dark text-base-card aria-pressed:bg-green"
+            className="flex h-9 w-9 items-center justify-center rounded-md bg-purple-dark text-base-card transition-colors hover:bg-purple aria-pressed:bg-green"
           >
             {isCoffeeInCart ? <Check size={22} /> : <ShoppingCart size={22} />}
           </button>
