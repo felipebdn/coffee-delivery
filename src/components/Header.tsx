@@ -74,13 +74,13 @@ export function Header() {
       <div className="flex gap-3">
         {stringLocation ? (
           <div className="group relative flex items-center gap-2">
-            <div className="flex items-center gap-1 rounded-md bg-purple-light p-2 text-sm text-purple-dark transition-transform min-[500px]:group-hover:-translate-x-12">
+            <div className="flex items-center gap-1 rounded-md bg-purple-light p-2 text-sm text-purple-dark transition-transform min-[370px]:group-hover:-translate-x-12">
               <MapPin size={22} />
               <p>{stringLocation}</p>
             </div>
             <button
               onClick={resetCepLocation}
-              className="absolute right-0 -z-10 flex rounded-md bg-error-color bg-opacity-60 p-2 text-base-subtitle outline-none group-hover:z-10 max-[499px]:transition-transform max-[499px]:group-hover:translate-y-12"
+              className="absolute right-0 -z-10 flex rounded-md bg-error-color bg-opacity-60 p-2 text-base-subtitle outline-none transition-transform group-hover:z-10 max-[370px]:group-hover:translate-y-12"
             >
               <X size={22} />
             </button>
@@ -92,9 +92,13 @@ export function Header() {
           >
             <div
               data-inputfocus={inputFocus}
-              className="relative flex items-center gap-2 rounded-md bg-purple-light p-2 text-sm text-purple-dark transition-transform data-[inputfocus=true]:-translate-x-12"
+              className="relative flex h-full items-center gap-2 rounded-md bg-purple-light p-2 text-sm text-purple-dark transition-transform data-[inputfocus=true]:-translate-x-12"
             >
-              <Edit3 size={22} />
+              <Edit3
+                size={22}
+                data-inputfocus={inputFocus}
+                className="max-[370px]:data-[inputfocus=true]:hidden"
+              />
               <input
                 type="string"
                 autoComplete="off"
@@ -110,7 +114,7 @@ export function Header() {
             <span
               data-inputfocus={inputFocus}
               data-error={inputError}
-              className="absolute left-0 -z-10 px-2 text-xs leading-tight text-error-color transition-transform data-[error=true]:-translate-x-full data-[error=true]:data-[inputfocus=true]:-translate-x-[calc(100%+48px)] data-[inputfocus=true]:-translate-x-12"
+              className="absolute left-0 -z-10 px-2 text-xs leading-tight text-error-color transition-transform max-[370px]:data-[error=true]:translate-y-8 max-[370px]:data-[inputfocus=true]:-translate-x-12 min-[370px]:data-[error=true]:-translate-x-full min-[370px]:data-[error=true]:data-[inputfocus=true]:-translate-x-[calc(100%+48px)] min-[370px]:data-[inputfocus=true]:-translate-x-12"
             >
               Digite um cep válido!
             </span>
