@@ -9,9 +9,11 @@
 
 ## Sobre esse projeto:
 
-<div>
-  <img src='https://github.com/felipebdn/ignite-timer/blob/main/public/assets/capa.png?raw=true' />
-</div>
+| | | |
+|---|---|---|
+| ![Imagem 1](https://github.com/felipebdn/coffee-delivery/blob/master/public/images/home.png?raw=true) | ![Imagem 2](https://github.com/felipebdn/coffee-delivery/blob/master/public/images/coffees.png?raw=true) | ![Imagem 3](https://github.com/felipebdn/coffee-delivery/blob/master/public/images/checkout.png?raw=true) |
+| ![Imagem 4](https://github.com/felipebdn/coffee-delivery/blob/master/public/images/completed-checkout.png?raw=true) | ![Imagem 5](https://github.com/felipebdn/coffee-delivery/blob/master/public/images/form-checkout-error.png?raw=true) | ![Imagem 6](https://github.com/felipebdn/coffee-delivery/blob/master/public/images/success.png?raw=true) |
+
 
 First, run the development server:
 
