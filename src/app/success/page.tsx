@@ -3,11 +3,15 @@ import Image from 'next/image'
 import ImageDelivery from '../../assets/images/delivery.png'
 import { OrderInfoSuccess } from '@/components/OrderInfoSuccess'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { coffeeContext } from '@/context/coffeesContext'
+import { useContext } from 'react'
 
 export default function Success() {
   const router = useRouter()
   const SearchParams = useSearchParams()
   const sessionId = SearchParams.get('session_id')
+  const { handleRezetCoffeeInCart } = useContext(coffeeContext)
+  handleRezetCoffeeInCart()
 
   if (!sessionId) {
     router.push('/')

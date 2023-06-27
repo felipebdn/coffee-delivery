@@ -34,7 +34,7 @@ export default function Checkout() {
     resolver: zodResolver(checkoutSchema),
   })
   const [open, setOpen] = useState(false)
-  const { cartCoffees, handleRezetCoffeeInCart } = useContext(coffeeContext)
+  const { cartCoffees } = useContext(coffeeContext)
   const { handleDataForm } = useContext(coffeesFormContext)
   const {
     handleSubmit,
@@ -50,8 +50,6 @@ export default function Checkout() {
       })
 
       const { checkoutUrl } = res.data
-
-      handleRezetCoffeeInCart()
 
       window.location.href = checkoutUrl
     } catch (err) {
