@@ -21,11 +21,15 @@ export function Header() {
   const { location, handleLocation, handleDeleteLocation } =
     useContext(coffeesFormContext)
   const [stringLocation, setStringLocation] = useState('')
+  const [inputFocus, setInputFocus] = useState(false)
+  const [inputError, setInputError] = useState(false)
+
+  console.log(inputError)
 
   const setCurrentLocationFromCep = useCallback(async () => {
     if (location) {
       const data = await GetDataCep(location)
-      if (data) {
+      if (data?.cep) {
         const stringLocation = `${data.localidade}, ${data.uf}`
         setStringLocation(stringLocation)
       }
@@ -47,10 +51,14 @@ export function Header() {
 
   async function SubmitCep({ cep }: cepChemaType) {
     const data = await GetDataCep(cep)
-    handleLocation(cep)
-    if (data) {
+
+    if (data?.cep) {
+      handleLocation(cep)
       const stringLocation = `${data.localidade}, ${data.uf}`
       setStringLocation(stringLocation)
+      setInputError(false)
+    } else {
+      setInputError(true)
     }
   }
   function resetCepLocation() {
@@ -82,19 +90,34 @@ export function Header() {
             onSubmit={handleSubmit(SubmitCep)}
             className="relative flex items-center gap-2"
           >
-            <div className="peer flex min-w-fit items-center gap-2 rounded-md bg-purple-light p-2 text-sm text-purple-dark transition-transform min-[500px]:focus-within:-translate-x-12">
+            <div
+              data-inputfocus={inputFocus}
+              className="relative flex items-center gap-2 rounded-md bg-purple-light p-2 text-sm text-purple-dark transition-transform data-[inputfocus=true]:-translate-x-12"
+            >
               <Edit3 size={22} />
               <input
-                type="text"
+                type="string"
                 autoComplete="off"
-                {...register('cep')}
-                className="flex h-full w-24 min-w-fit bg-transparent outline-none placeholder:text-sm placeholder:text-purple-dark"
+                onFocus={() => setInputFocus(true)}
+                maxLength={8}
+                {...register('cep', {
+                  onBlur: () => setInputFocus(false),
+                })}
+                className="peer flex h-full w-24 bg-transparent outline-none placeholder:text-sm placeholder:text-purple-dark"
                 placeholder="Digite seu cep"
               />
             </div>
+            <span
+              data-inputfocus={inputFocus}
+              data-error={inputError}
+              className="absolute left-0 -z-10 px-2 text-xs leading-tight text-error-color transition-transform data-[error=true]:-translate-x-full data-[error=true]:data-[inputfocus=true]:-translate-x-[calc(100%+48px)] data-[inputfocus=true]:-translate-x-12"
+            >
+              Digite um cep válido!
+            </span>
             <button
               type="submit"
-              className="absolute right-0 -z-10 flex rounded-md bg-purple-light p-2 text-base-subtitle outline-none transition-all delay-75 peer-focus-within:z-10 max-[499px]:peer-focus-within:translate-y-12"
+              data-inputfocus={inputFocus}
+              className="absolute right-0 -z-10 flex rounded-md bg-purple-light p-2 text-base-subtitle outline-none transition-all delay-75 data-[inputfocus=true]:z-10"
             >
               <Search size={22} />
             </button>
