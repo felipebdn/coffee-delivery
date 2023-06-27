@@ -97,7 +97,8 @@ export default function Checkout() {
                 Pagamento
               </h4>
               <p className="text-sm font-normal leading-tight text-base-text">
-                O pagamento é feito na entrega. Escolha a forma que deseja pagar
+                Informe a forma de pagamento, atualmente so é realizado por
+                cartão de crédito
               </p>
             </div>
           </header>
