@@ -15,6 +15,17 @@
 | ![Imagem 4](https://github.com/felipebdn/coffee-delivery/blob/master/public/images/completed-checkout.png?raw=true) | ![Imagem 5](https://github.com/felipebdn/coffee-delivery/blob/master/public/images/form-checkout-error.png?raw=true) | ![Imagem 6](https://github.com/felipebdn/coffee-delivery/blob/master/public/images/success.png?raw=true) |
 
 
+#### As funcionalidades comuns são:
+
+- Escolher a quantidades de cada café.
+- No header procurar pelo seu cep e aparecerá a cidade e o estado.
+- Na pagina de checkout lista dos os cafés selecionados com suas respectivas quantidades.
+- Mostra o valor total dos cafes junto com o frete (frete padrão independente da localização).
+- Caso ja tenha preenchido o cep no header, o formulário de endereço preencherá parcialmente automaticamente.
+- Validação de campos vazios no formulário de endereço e na forma de pagamento.
+- Pagamento realizado pela API do <a href="https://stripe.com/">Stripe.</a>
+- Pagina de finalização de compra mostrando os dados de entrega.
+
 First, run the development server:
 
 ```bash
