@@ -34,13 +34,13 @@ export function CoffeeContextProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const getItemFromLocalStorage = localStorage.getItem(
-      'Coffee-delivery: coffee-cards-1.1.0',
+      'Coffee-delivery: coffee-cards-2.0.0',
     )
     if (getItemFromLocalStorage && JSON.parse(getItemFromLocalStorage)) {
       dispatch(
         InitRestore(
           JSON.parse(
-            localStorage.getItem('Coffee-delivery: coffee-cards-1.1.0')!,
+            localStorage.getItem('Coffee-delivery: coffee-cards-2.0.0')!,
           ),
         ),
       )
@@ -49,7 +49,7 @@ export function CoffeeContextProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (cartCoffees !== initialValues) {
       const stateJSON = JSON.stringify(cartCoffees)
-      localStorage.setItem('Coffee-delivery: coffee-cards-1.1.0', stateJSON)
+      localStorage.setItem('Coffee-delivery: coffee-cards-2.0.0', stateJSON)
     }
   }, [cartCoffees])
 

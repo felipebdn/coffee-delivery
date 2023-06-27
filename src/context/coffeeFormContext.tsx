@@ -18,17 +18,17 @@ export function CoffeeFormProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const getLocationFromInputCep = localStorage.getItem(
-      'Coffee-delivery: location-1.1.0',
+      'Coffee-delivery: location-2.0.0',
     )
     if (getLocationFromInputCep && JSON.parse(getLocationFromInputCep)) {
       setLocation(
-        JSON.parse(localStorage.getItem('Coffee-delivery: location-1.1.0')!),
+        JSON.parse(localStorage.getItem('Coffee-delivery: location-2.0.0')!),
       )
     }
-    const getDataForm = localStorage.getItem('Coffee-delivery: formData-1.1.0')
+    const getDataForm = localStorage.getItem('Coffee-delivery: formData-2.0.0')
     if (getDataForm && JSON.parse(getDataForm)) {
       setDataForm(
-        JSON.parse(localStorage.getItem('Coffee-delivery: formData-1.1.0')!),
+        JSON.parse(localStorage.getItem('Coffee-delivery: formData-2.0.0')!),
       )
     }
   }, [])
@@ -36,20 +36,20 @@ export function CoffeeFormProvider({ children }: { children: ReactNode }) {
   function handleLocation(local: string) {
     if (local !== '') {
       const stateJSON = JSON.stringify(local)
-      localStorage.setItem('Coffee-delivery: location-1.1.0', stateJSON)
+      localStorage.setItem('Coffee-delivery: location-2.0.0', stateJSON)
     }
     setLocation(local)
   }
 
   function handleDataForm(data: CheckoutTypes) {
     const stateJSON = JSON.stringify(data)
-    localStorage.setItem('Coffee-delivery: formData-1.1.0', stateJSON)
+    localStorage.setItem('Coffee-delivery: formData-2.0.0', stateJSON)
     setDataForm(data)
   }
 
   function handleDeleteLocation() {
     setLocation('')
-    localStorage.removeItem('Coffee-delivery: location-1.1.0')
+    localStorage.removeItem('Coffee-delivery: location-2.0.0')
   }
 
   return (
