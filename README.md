@@ -7,10 +7,11 @@
 
 </p>
 
+## Sobre esse projeto:
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Sobre esse projeto:-
+<div>
+  <img src='https://github.com/felipebdn/ignite-timer/blob/main/public/assets/capa.png?raw=true' />
+</div>
 
 First, run the development server:
 
