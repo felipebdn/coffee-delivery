@@ -7,7 +7,7 @@
 
 </p>
 
-## Sobre esse projeto:
+## Sobre esse projeto
 
 | | | |
 |---|---|---|
